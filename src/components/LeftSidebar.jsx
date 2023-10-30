@@ -16,22 +16,95 @@ export default function LeftSidebar(props) {
       <h1>General Settings</h1>
       <ProjectNameContainer {...props} isItemOpened={isItemOpenedArrow} />
       <MaxButtonsContainer {...props} isItemOpened={isItemOpenedArrow} />
-      <MaxWidthContainer {...props} isItemOpened={isItemOpenedArrow} />
+      <MaxRowsContainer {...props} isItemOpened={isItemOpenedArrow} />
+      <AllowedPhotoExtensions {...props} isItemOpened={isItemOpenedArrow} />
     </div>
   )
 }
 
-function MaxWidthContainer(props) {
+function AllowedPhotoExtensions(props) {
+  const [itemOpened, setItemOpened] = React.useState(false)
+  function toggleOpened() {
+    setItemOpened((prevState) => !prevState)
+  }
+
+  const handleEnterPress = (key) => {
+    if (key.code === 'Enter') {
+      props.addPhotoExtension(props.newPhotoExtensionValue)
+    }
+  }
+
+  const extensions = props.allowedPhotoExtensions.map((item) => (
+    <AllowedItem
+      key={item.id}
+      id={item.id}
+      isChecked={item.isChecked}
+      onClick={() => props.togglePhotoExtension(item.id)}
+      onRemove={() => props.removePhotoExtension(item.id)}
+    />
+  ))
+
+  return (
+    <div className='allowed-photo-extensions-container'>
+      <div className='dropdown' onClick={toggleOpened}>
+        {props.isItemOpened(itemOpened)}
+        <h3>Allowed Photo extensions</h3>
+      </div>
+
+      {itemOpened && extensions}
+      {itemOpened && (
+        <div className='add-extension'>
+          <input
+            type='text'
+            placeholder='Add new'
+            maxLength={10}
+            onChange={props.onChangeNewPhotoExtension}
+            onKeyDown={handleEnterPress}
+            value={props.newPhotoExtensionValue}
+          />
+          <span
+            className='material-symbols-outlined clickable'
+            onClick={() =>
+              props.addPhotoExtension(props.newPhotoExtensionValue)
+            }
+          >
+            done
+          </span>
+        </div>
+      )}
+    </div>
+  )
+}
+
+function AllowedItem(props) {
+  return (
+    <div className='allowed-item' onClick={props.onClick}>
+      <span className='material-symbols-outlined'>
+        {props.isChecked ? 'radio_button_checked' : 'radio_button_unchecked'}
+      </span>
+      <h3>{props.id}</h3>
+      <span
+        className='material-symbols-outlined trash-ico'
+        onClick={props.onRemove}
+      >
+        delete
+      </span>
+    </div>
+  )
+}
+
+function MaxRowsContainer(props) {
   const [itemOpened, setItemOpened] = React.useState(false)
   function toggleOpened() {
     setItemOpened((prevState) => !prevState)
   }
   return (
-    <div className='max-rows'>
+    <div className='max-rows-container'>
       <div className='dropdown' onClick={toggleOpened}>
         {props.isItemOpened(itemOpened)}
         <h3>Max Rows on page</h3>
       </div>
+
       {itemOpened && (
         <div className='counter'>
           <div
@@ -99,7 +172,7 @@ function ProjectNameContainer(props) {
     setIsProjectNameOpened((prevState) => !prevState)
   }
   return (
-    <div className='project-name'>
+    <div className='project-name-container'>
       <div className='dropdown' onClick={toggleProjectName}>
         {props.isItemOpened(isProjectNameOpened)}
         <h3>Your project name</h3>

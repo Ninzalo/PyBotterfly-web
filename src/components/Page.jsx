@@ -31,9 +31,7 @@ function MessageContainer(props) {
       <BotLogo />
       <div className='message-output'>
         <h3>{props.projectName}</h3>
-        <div className='textarea' >
-          Input text here...
-        </div>
+        <div className='textarea'>Input text here...</div>
         <InlineButtonsContainer />
       </div>
     </div>

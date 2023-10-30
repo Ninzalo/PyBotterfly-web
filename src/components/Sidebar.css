@@ -72,9 +72,9 @@ input {
   display: flex;
   flex-direction: row;
   justify-content: start;
+  align-items: center;
 
   color: white;
-  align-items: center;
 
   margin: 0 auto;
   margin-left: 20px;
@@ -84,6 +84,54 @@ input {
 
 .counter > h3 {
   min-width: 20px;
+}
+
+.allowed-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+
+  color: white;
+
+  margin: 0 auto;
+  margin-left: 20px;
+
+  height: 2rem;
+  width: 100%;
+
+  cursor: pointer;
+}
+
+.allowed-item > h3 {
+  margin-left: 10px;
+}
+
+.allowed-item > .trash-ico {
+  margin: 0;
+  margin-left: auto;
+  margin-right: 60%;
+}
+
+.add-extension {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.add-extension > input {
+  width: 40%;
+  margin-left: 20px;
+  margin-right: 0;
+}
+
+.add-extension > span {
+  margin-left: 10px;
+}
+
+.clickable {
+  cursor: pointer;
 }
 
 .left-sidebar {

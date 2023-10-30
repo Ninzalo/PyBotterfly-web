@@ -14,34 +14,70 @@ function App() {
   )
   const [maxRows, setMaxRows] = React.useState(defaultValues.maxRows)
 
-  function onChangeProjectName(event) {
-    setProjectName(event.target.value)
+  const [photoExtensions, setPhotoExtensions] = React.useState(
+    defaultValues.allowedPhotoExtensions,
+  )
+  const [newPhotoExtensionValue, setNewPhotoExtensionValue] = React.useState('')
+
+  const photoExtensionsFuncs = {
+    onChangeNewPhotoExtension: (event) => {
+      setNewPhotoExtensionValue(event.target.value)
+    },
+    removePhotoExtension: (itemId) => {
+      setPhotoExtensions((prevState) =>
+        prevState.filter((item) => item.id !== itemId),
+      )
+    },
+    addPhotoExtension: (itemId) => {
+      setPhotoExtensions((prevState) => {
+        const newState = prevState.filter((item) => item.id !== itemId)
+        return [...newState, { id: itemId, isChecked: true }]
+      })
+      setNewPhotoExtensionValue('')
+    },
+    togglePhotoExtension: (itemId) => {
+      setPhotoExtensions((prevState) =>
+        prevState.map((item) =>
+          item.id === itemId
+            ? { ...item, isChecked: !item.isChecked }
+            : { ...item },
+        ),
+      )
+    },
   }
 
-  function incrementMaxButtons() {
-    setMaxButtons((prevState) => {
-      return prevState < defaultValues.maxButtonsInRow
-        ? prevState + 1
-        : prevState
-    })
+  const projectNameFuncs = {
+    onChangeProjectName: (event) => {
+      setProjectName(event.target.value)
+    },
   }
 
-  function decrementMaxButtons() {
-    setMaxButtons((prevState) => {
-      return prevState > 1 ? prevState - 1 : prevState
-    })
+  const maxButtonsFuncs = {
+    incrementMaxButtons: () => {
+      setMaxButtons((prevState) => {
+        return prevState < defaultValues.maxButtonsInRow
+          ? prevState + 1
+          : prevState
+      })
+    },
+    decrementMaxButtons: () => {
+      setMaxButtons((prevState) => {
+        return prevState > 1 ? prevState - 1 : prevState
+      })
+    },
   }
 
-  function incrementMaxRows() {
-    setMaxRows((prevState) => {
-      return prevState < defaultValues.maxRows ? prevState + 1 : prevState
-    })
-  }
-
-  function decrementMaxRows() {
-    setMaxRows((prevState) => {
-      return prevState > 1 ? prevState - 1 : prevState
-    })
+  const maxRowsFuncs = {
+    incrementMaxRows: () => {
+      setMaxRows((prevState) => {
+        return prevState < defaultValues.maxRows ? prevState + 1 : prevState
+      })
+    },
+    decrementMaxRows: () => {
+      setMaxRows((prevState) => {
+        return prevState > 1 ? prevState - 1 : prevState
+      })
+    },
   }
 
   return (
@@ -50,13 +86,14 @@ function App() {
       <div className='main'>
         <LeftSidebar
           projectName={projectName}
-          onChangeProjectName={onChangeProjectName}
+          {...projectNameFuncs}
           maxButtons={maxButtons}
-          incrementMaxButtons={incrementMaxButtons}
-          decrementMaxButtons={decrementMaxButtons}
+          {...maxButtonsFuncs}
           maxRows={maxRows}
-          incrementMaxRows={incrementMaxRows}
-          decrementMaxRows={decrementMaxRows}
+          {...maxRowsFuncs}
+          allowedPhotoExtensions={photoExtensions}
+          newPhotoExtensionValue={newPhotoExtensionValue}
+          {...photoExtensionsFuncs}
         />
         <Page projectName={projectName} />
         <RightSidebar />
