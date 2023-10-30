@@ -90,28 +90,23 @@ input {
 .allowed-item {
   display: flex;
   flex-direction: row;
-  justify-content: start;
+  justify-content: space-between;
   align-items: center;
 
   color: white;
 
   margin: 0 auto;
   margin-left: 20px;
+  margin-right: 57%;
 
   height: 2rem;
-  width: 100%;
 
   cursor: pointer;
 }
 
 .allowed-item > h3 {
   margin-left: 10px;
-}
-
-.allowed-item > .trash-ico {
-  margin: 0;
-  margin-left: auto;
-  margin-right: 60%;
+  margin-right: auto;
 }
 
 .add-extension {
