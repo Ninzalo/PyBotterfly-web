@@ -1,7 +1,7 @@
 import React from 'react'
 import Navbar from './components/Navbar'
 import Page from './components/Page'
-import LeftSidebar from './components/LeftSidebar'
+import LeftSidebar from './components/leftsidebar/LeftSidebar.jsx'
 import RightSidebar from './components/RightSidebar'
 import { defaultValues } from './DefaultValues'
 
@@ -35,11 +35,16 @@ function App() {
       )
     },
     addFileExtension: (itemId) => {
-      setFileExtensions((prevState) => {
-        const newState = prevState.filter((item) => item.id !== itemId)
-        return [...newState, { id: itemId, isChecked: true }]
-      })
-      setNewFileExtensionValue('')
+      const strippedItemId = itemId.replace(/\s/g, '')
+      if (strippedItemId) {
+        setFileExtensions((prevState) => {
+          const newState = prevState.filter(
+            (item) => item.id !== strippedItemId,
+          )
+          return [...newState, { id: strippedItemId, isChecked: true }]
+        })
+        setNewFileExtensionValue('')
+      }
     },
     toggleFileExtension: (itemId) => {
       setFileExtensions((prevState) =>
@@ -62,11 +67,16 @@ function App() {
       )
     },
     addPhotoExtension: (itemId) => {
-      setPhotoExtensions((prevState) => {
-        const newState = prevState.filter((item) => item.id !== itemId)
-        return [...newState, { id: itemId, isChecked: true }]
-      })
-      setNewPhotoExtensionValue('')
+      const strippedItemId = itemId.replace(/\s/g, '')
+      if (strippedItemId) {
+        setPhotoExtensions((prevState) => {
+          const newState = prevState.filter(
+            (item) => item.id !== strippedItemId,
+          )
+          return [...newState, { id: strippedItemId, isChecked: true }]
+        })
+        setNewPhotoExtensionValue('')
+      }
     },
     togglePhotoExtension: (itemId) => {
       setPhotoExtensions((prevState) =>
@@ -113,11 +123,23 @@ function App() {
     },
   }
 
+  const generalFuncs = {
+    isItemOpenedArrow: (item) => {
+      return item ? (
+        <span className='material-symbols-outlined'>expand_less</span>
+      ) : (
+        <span className='material-symbols-outlined'>expand_more</span>
+      )
+    },
+  }
+
   return (
     <>
       <Navbar />
       <div className='main'>
         <LeftSidebar
+          isItemOpened={generalFuncs.isItemOpenedArrow}
+          dropdownItem={generalFuncs.dropdownItem}
           projectName={projectName}
           {...projectNameFuncs}
           maxButtons={maxButtons}
