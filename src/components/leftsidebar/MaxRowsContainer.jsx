@@ -20,14 +20,16 @@ export default function MaxRowsContainer(props) {
       {itemOpened && (
         <div className='counter'>
           <div
-            className={`circle${props.maxRows === 1 ? ' unavailable' : ''}`}
+            className={`circle clickable ${
+              props.maxRows === 1 ? ' unavailable' : ''
+            }`}
             onClick={props.decrementMaxRows}
           >
             -
           </div>
           <h3>{props.maxRows}</h3>
           <div
-            className={`circle${
+            className={`circle clickable ${
               props.maxRows === defaultValues.maxRows ? ' unavailable' : ''
             }`}
             onClick={props.incrementMaxRows}
