@@ -3,11 +3,16 @@ import Navbar from './components/Navbar'
 import Page from './components/Page'
 import LeftSidebar from './components/LeftSidebar'
 import RightSidebar from './components/RightSidebar'
+import { defaultValues } from './DefaultValues'
 
 function App() {
-  const [projectName, setProjectName] = React.useState('Bot Name')
-  const [maxButtons, setMaxButtons] = React.useState(4)
-  const [maxRows, setMaxRows] = React.useState(5)
+  const [projectName, setProjectName] = React.useState(
+    defaultValues.projectName,
+  )
+  const [maxButtons, setMaxButtons] = React.useState(
+    defaultValues.maxButtonsInRow,
+  )
+  const [maxRows, setMaxRows] = React.useState(defaultValues.maxRows)
 
   function onChangeProjectName(event) {
     setProjectName(event.target.value)
@@ -15,7 +20,9 @@ function App() {
 
   function incrementMaxButtons() {
     setMaxButtons((prevState) => {
-      return prevState < 4 ? prevState + 1 : prevState
+      return prevState < defaultValues.maxButtonsInRow
+        ? prevState + 1
+        : prevState
     })
   }
 
@@ -27,7 +34,7 @@ function App() {
 
   function incrementMaxRows() {
     setMaxRows((prevState) => {
-      return prevState < 5 ? prevState + 1 : prevState
+      return prevState < defaultValues.maxRows ? prevState + 1 : prevState
     })
   }
 

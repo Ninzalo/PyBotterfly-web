@@ -14,6 +14,9 @@
 
   margin: 1vh 1vw;
   padding: 0;
+
+  display: flex;
+  flex-direction: column;
 }
 
 .dropdown {
@@ -24,6 +27,11 @@
 
   margin: 0;
   margin-left: 10px;
+  padding: 0;
+
+  height: 2.5rem;
+
+  cursor: pointer
 }
 
 input {
@@ -52,6 +60,8 @@ input {
   display: flex;
   justify-content: center;
   align-items: center;
+
+  cursor: pointer
 }
 
 .unavailable {
@@ -61,11 +71,15 @@ input {
 .counter {
   display: flex;
   flex-direction: row;
-  color: white;
   justify-content: start;
+
+  color: white;
   align-items: center;
+
   margin: 0 auto;
   margin-left: 20px;
+
+  height: 2rem;
 }
 
 .left-sidebar {

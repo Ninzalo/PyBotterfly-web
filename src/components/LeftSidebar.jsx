@@ -1,5 +1,6 @@
 import React from 'react'
 import './Sidebar.css'
+import { defaultValues } from '../DefaultValues'
 
 export default function LeftSidebar(props) {
   function isItemOpenedArrow(item) {
@@ -41,7 +42,9 @@ function MaxWidthContainer(props) {
           </div>
           <h3>{props.maxRows}</h3>
           <div
-            className={`circle${props.maxRows === 5 ? ' unavailable' : ''}`}
+            className={`circle${
+              props.maxRows === defaultValues.maxRows ? ' unavailable' : ''
+            }`}
             onClick={props.incrementMaxRows}
           >
             +
@@ -74,7 +77,11 @@ function MaxButtonsContainer(props) {
           </div>
           <h3>{props.maxButtons}</h3>
           <div
-            className={`circle${props.maxButtons === 4 ? ' unavailable' : ''}`}
+            className={`circle${
+              props.maxButtons === defaultValues.maxButtonsInRow
+                ? ' unavailable'
+                : ''
+            }`}
             onClick={props.incrementMaxButtons}
           >
             +
