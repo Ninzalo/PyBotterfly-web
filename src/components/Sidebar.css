@@ -31,7 +31,7 @@
 
   height: 2.5rem;
 
-  cursor: pointer
+  cursor: pointer;
 }
 
 input {
@@ -61,7 +61,7 @@ input {
   justify-content: center;
   align-items: center;
 
-  cursor: pointer
+  cursor: pointer;
 }
 
 .unavailable {
@@ -80,6 +80,10 @@ input {
   margin-left: 20px;
 
   height: 2rem;
+}
+
+.counter > h3 {
+  min-width: 20px;
 }
 
 .left-sidebar {
