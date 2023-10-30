@@ -19,6 +19,39 @@ function App() {
   )
   const [newPhotoExtensionValue, setNewPhotoExtensionValue] = React.useState('')
 
+  const [fileExtensions, setFileExtensions] = React.useState(
+    defaultValues.allowedFileExtensions,
+  )
+
+  const [newFileExtensionValue, setNewFileExtensionValue] = React.useState('')
+
+  const fileExtensionsFuncs = {
+    onChangeNewFileExtension: (event) => {
+      setNewFileExtensionValue(event.target.value)
+    },
+    removeFileExtension: (itemId) => {
+      setFileExtensions((prevState) =>
+        prevState.filter((item) => item.id !== itemId),
+      )
+    },
+    addFileExtension: (itemId) => {
+      setFileExtensions((prevState) => {
+        const newState = prevState.filter((item) => item.id !== itemId)
+        return [...newState, { id: itemId, isChecked: true }]
+      })
+      setNewFileExtensionValue('')
+    },
+    toggleFileExtension: (itemId) => {
+      setFileExtensions((prevState) =>
+        prevState.map((item) =>
+          item.id === itemId
+            ? { ...item, isChecked: !item.isChecked }
+            : { ...item },
+        ),
+      )
+    },
+  }
+
   const photoExtensionsFuncs = {
     onChangeNewPhotoExtension: (event) => {
       setNewPhotoExtensionValue(event.target.value)
@@ -94,6 +127,9 @@ function App() {
           allowedPhotoExtensions={photoExtensions}
           newPhotoExtensionValue={newPhotoExtensionValue}
           {...photoExtensionsFuncs}
+          allowedFileExtensions={fileExtensions}
+          newFileExtensionValue={newFileExtensionValue}
+          {...fileExtensionsFuncs}
         />
         <Page projectName={projectName} />
         <RightSidebar />
