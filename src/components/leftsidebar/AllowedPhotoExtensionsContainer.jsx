@@ -40,7 +40,7 @@ export default function AllowedPhotoExtensionsContainer(props) {
           <input
             type='text'
             placeholder='Add new'
-            maxLength={10}
+            maxLength={5}
             onChange={props.onChangeNewPhotoExtension}
             onKeyDown={handleEnterPress}
             value={props.newPhotoExtensionValue}

@@ -43,8 +43,8 @@ function App() {
           )
           return [...newState, { id: strippedItemId, isChecked: true }]
         })
-        setNewFileExtensionValue('')
       }
+      setNewFileExtensionValue('')
     },
     toggleFileExtension: (itemId) => {
       setFileExtensions((prevState) =>
@@ -75,8 +75,8 @@ function App() {
           )
           return [...newState, { id: strippedItemId, isChecked: true }]
         })
-        setNewPhotoExtensionValue('')
       }
+      setNewPhotoExtensionValue('')
     },
     togglePhotoExtension: (itemId) => {
       setPhotoExtensions((prevState) =>
