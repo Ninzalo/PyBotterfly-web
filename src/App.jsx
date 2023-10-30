@@ -9,10 +9,18 @@ function App() {
   const [projectName, setProjectName] = React.useState(
     defaultValues.projectName,
   )
-  const [maxButtons, setMaxButtons] = React.useState(
+
+  const [maxButtonsAmount, setMaxButtonsAmount] = React.useState(
+    defaultValues.maxButtonsAmount,
+  )
+
+  const [maxButtonsInRow, setMaxButtonsInRow] = React.useState(
     defaultValues.maxButtonsInRow,
   )
+
   const [maxRows, setMaxRows] = React.useState(defaultValues.maxRows)
+
+  console.log(maxButtonsAmount, maxButtonsInRow, maxRows)
 
   const [photoExtensions, setPhotoExtensions] = React.useState(
     defaultValues.allowedPhotoExtensions,
@@ -95,16 +103,31 @@ function App() {
     },
   }
 
-  const maxButtonsFuncs = {
-    incrementMaxButtons: () => {
-      setMaxButtons((prevState) => {
+  const maxButtonsAmountFuncs = {
+    incrementMaxButtonsAmount: () => {
+      setMaxButtonsAmount((prevState) => {
+        return prevState < defaultValues.maxButtonsAmount
+          ? prevState + 1
+          : prevState
+      })
+    },
+    decrementMaxButtonsAmount: () => {
+      setMaxButtonsAmount((prevState) => {
+        return prevState > 1 ? prevState - 1 : prevState
+      })
+    },
+  }
+
+  const maxButtonsInRowFuncs = {
+    incrementMaxButtonsInRow: () => {
+      setMaxButtonsInRow((prevState) => {
         return prevState < defaultValues.maxButtonsInRow
           ? prevState + 1
           : prevState
       })
     },
-    decrementMaxButtons: () => {
-      setMaxButtons((prevState) => {
+    decrementMaxButtonsInRow: () => {
+      setMaxButtonsInRow((prevState) => {
         return prevState > 1 ? prevState - 1 : prevState
       })
     },
@@ -142,8 +165,10 @@ function App() {
           dropdownItem={generalFuncs.dropdownItem}
           projectName={projectName}
           {...projectNameFuncs}
-          maxButtons={maxButtons}
-          {...maxButtonsFuncs}
+          maxButtonsAmount={maxButtonsAmount}
+          {...maxButtonsAmountFuncs}
+          maxButtonsInRow={maxButtonsInRow}
+          {...maxButtonsInRowFuncs}
           maxRows={maxRows}
           {...maxRowsFuncs}
           allowedPhotoExtensions={photoExtensions}

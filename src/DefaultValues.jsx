@@ -36,6 +36,7 @@ const defaultFileExtensions = [
   },
 ]
 export const defaultValues = {
+  maxButtonsAmount: 20,
   maxButtonsInRow: 4,
   maxRows: 6,
   projectName: 'Bot Name',
