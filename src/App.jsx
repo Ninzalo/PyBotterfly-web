@@ -20,8 +20,6 @@ function App() {
 
   const [maxRows, setMaxRows] = React.useState(defaultValues.maxRows)
 
-  console.log(maxButtonsAmount, maxButtonsInRow, maxRows)
-
   const [photoExtensions, setPhotoExtensions] = React.useState(
     defaultValues.allowedPhotoExtensions,
   )
@@ -30,8 +28,15 @@ function App() {
   const [fileExtensions, setFileExtensions] = React.useState(
     defaultValues.allowedFileExtensions,
   )
-
   const [newFileExtensionValue, setNewFileExtensionValue] = React.useState('')
+
+  const [debugState, setDebugState] = React.useState(defaultValues.debugState)
+
+  const debugStateFuncs = {
+    toggleDebugState: () => {
+      setDebugState((prevState) => !prevState)
+    },
+  }
 
   const fileExtensionsFuncs = {
     onChangeNewFileExtension: (event) => {
@@ -162,7 +167,6 @@ function App() {
       <div className='main'>
         <LeftSidebar
           isItemOpened={generalFuncs.isItemOpenedArrow}
-          dropdownItem={generalFuncs.dropdownItem}
           projectName={projectName}
           {...projectNameFuncs}
           maxButtonsAmount={maxButtonsAmount}
@@ -177,6 +181,8 @@ function App() {
           allowedFileExtensions={fileExtensions}
           newFileExtensionValue={newFileExtensionValue}
           {...fileExtensionsFuncs}
+          debugState={debugState}
+          {...debugStateFuncs}
         />
         <Page projectName={projectName} />
         <RightSidebar />

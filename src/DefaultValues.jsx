@@ -42,4 +42,5 @@ export const defaultValues = {
   projectName: 'Bot Name',
   allowedPhotoExtensions: defaultPhotoExtensions,
   allowedFileExtensions: defaultFileExtensions,
+  debugState: false,
 }

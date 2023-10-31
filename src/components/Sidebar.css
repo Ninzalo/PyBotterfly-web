@@ -71,8 +71,6 @@ input {
   justify-content: start;
   align-items: center;
 
-  color: white;
-
   margin: 0 auto;
   margin-left: 20px;
 
@@ -123,6 +121,41 @@ input {
 
 .clickable {
   cursor: pointer;
+}
+
+.switch {
+  border: 2px solid white;
+  border-radius: 15px;
+
+  height: 24px;
+  width: 46px;
+
+  margin: 0;
+  margin-left: 35px;
+  padding: 0;
+}
+
+.switch > .slider {
+  border: none;
+  border-radius: 13px;
+
+  background-color: white;
+
+  height: 24px;
+  width: 24px;
+
+  margin: 0;
+  padding: 0;
+}
+
+.switch > .switch-on {
+  background-color: #4bb34b;
+  margin-left: auto;
+}
+
+.switch > .switch-off {
+  background-color: #ff4d4d;
+  margin-right: auto;
 }
 
 .left-sidebar {

@@ -6,6 +6,7 @@ import MaxButtonsInRowContainer from './MaxButtonsInRowContainer'
 import MaxRowsContainer from './MaxRowsContainer'
 import AllowedPhotoExtensionsContainer from './AllowedPhotoExtensionsContainer'
 import AllowedFileExtensionsContainer from './AllowedFileExtensionsContainer'
+import DebugStateContainer from './DebugStateContainer'
 
 export default function LeftSidebar(props) {
   return (
@@ -17,6 +18,7 @@ export default function LeftSidebar(props) {
       <MaxRowsContainer {...props} />
       <AllowedPhotoExtensionsContainer {...props} />
       <AllowedFileExtensionsContainer {...props} />
+      <DebugStateContainer {...props} />
     </div>
   )
 }
