@@ -27,7 +27,7 @@ export default function MessageTextContainer(props) {
         <textarea
           onKeyDown={handleKeyDown}
           name='text'
-          onChange={props.pagesFuncs.onChangeCurrentPage}
+          onChange={props.pagesFuncs.onChangeCurrentPageText}
           value={props.pagesFuncs.currentPage?.text}
         />
       )}

@@ -177,7 +177,7 @@ function App() {
       ])
       setCurrentPageId('')
     },
-    onChangeCurrentPage: (event) => {
+    onChangeCurrentPageText: (event) => {
       const { name, value } = event.target
       setPages((prevState) => {
         const prevPageState = prevState.find(
