@@ -35,6 +35,16 @@ const defaultFileExtensions = [
     isChecked: false,
   },
 ]
+
+const emptyPageData = {
+  id: '',
+  pageId: '',
+  text: 'Enter message text',
+  buttons: [],
+}
+
+const emptyButtonData = {}
+
 export const defaultValues = {
   maxButtonsAmount: 20,
   maxButtonsInRow: 4,
@@ -43,4 +53,6 @@ export const defaultValues = {
   allowedPhotoExtensions: defaultPhotoExtensions,
   allowedFileExtensions: defaultFileExtensions,
   debugState: false,
+  pages: [],
+  emptyPageData: emptyPageData,
 }

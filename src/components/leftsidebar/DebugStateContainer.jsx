@@ -12,18 +12,18 @@ export default function DebugStateContainer(props) {
   return (
     <div className='debug-state-container'>
       <DropDownItem
-        {...props}
+        dropDownArrow={props.dropDownArrow}
         toggleItem={toggleOpened}
         isItemCurrentOpened={itemOpened}
         dropDownItemName='Debug State'
       />
       {itemOpened && (
         <div
-          className='debug-state-container clickable'
-          onClick={props.toggleDebugState}
+          className='debug-state-container'
+          onClick={props.debugStateFuncs.toggleDebugState}
         >
-          <div className='switch'>
-            {props.debugState ? (
+          <div className='switch clickable'>
+            {props.debugStateFuncs.debugState ? (
               <div className='slider switch-on'></div>
             ) : (
               <div className='slider switch-off'></div>

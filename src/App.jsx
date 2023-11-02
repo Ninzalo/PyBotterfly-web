@@ -1,76 +1,82 @@
 import React from 'react'
 import Navbar from './components/Navbar'
-import Page from './components/Page'
+import PreviewConstructor from './components/pages/PreviewConstructor'
 import LeftSidebar from './components/leftsidebar/LeftSidebar.jsx'
-import RightSidebar from './components/RightSidebar'
+import RightSidebar from './components/rightsidebar/RightSidebar'
 import { defaultValues } from './DefaultValues'
+import { nanoid } from 'nanoid'
 
 function App() {
   const [projectName, setProjectName] = React.useState(
     defaultValues.projectName,
   )
+  const projectNameFuncs = {
+    projectName: projectName,
+    onChangeProjectName: (event) => {
+      setProjectName(event.target.value)
+    },
+  }
 
   const [maxButtonsAmount, setMaxButtonsAmount] = React.useState(
     defaultValues.maxButtonsAmount,
   )
+  const maxButtonsAmountFuncs = {
+    maxButtonsAmount: maxButtonsAmount,
+    incrementMaxButtonsAmount: () => {
+      setMaxButtonsAmount((prevState) => {
+        return prevState < defaultValues.maxButtonsAmount
+          ? prevState + 1
+          : prevState
+      })
+    },
+    decrementMaxButtonsAmount: () => {
+      setMaxButtonsAmount((prevState) => {
+        return prevState > 1 ? prevState - 1 : prevState
+      })
+    },
+  }
 
   const [maxButtonsInRow, setMaxButtonsInRow] = React.useState(
     defaultValues.maxButtonsInRow,
   )
+  const maxButtonsInRowFuncs = {
+    maxButtonsInRow: maxButtonsInRow,
+    incrementMaxButtonsInRow: () => {
+      setMaxButtonsInRow((prevState) => {
+        return prevState < defaultValues.maxButtonsInRow
+          ? prevState + 1
+          : prevState
+      })
+    },
+    decrementMaxButtonsInRow: () => {
+      setMaxButtonsInRow((prevState) => {
+        return prevState > 1 ? prevState - 1 : prevState
+      })
+    },
+  }
 
   const [maxRows, setMaxRows] = React.useState(defaultValues.maxRows)
+  const maxRowsFuncs = {
+    maxRows: maxRows,
+    incrementMaxRows: () => {
+      setMaxRows((prevState) => {
+        return prevState < defaultValues.maxRows ? prevState + 1 : prevState
+      })
+    },
+    decrementMaxRows: () => {
+      setMaxRows((prevState) => {
+        return prevState > 1 ? prevState - 1 : prevState
+      })
+    },
+  }
 
   const [photoExtensions, setPhotoExtensions] = React.useState(
     defaultValues.allowedPhotoExtensions,
   )
   const [newPhotoExtensionValue, setNewPhotoExtensionValue] = React.useState('')
-
-  const [fileExtensions, setFileExtensions] = React.useState(
-    defaultValues.allowedFileExtensions,
-  )
-  const [newFileExtensionValue, setNewFileExtensionValue] = React.useState('')
-
-  const [debugState, setDebugState] = React.useState(defaultValues.debugState)
-
-  const debugStateFuncs = {
-    toggleDebugState: () => {
-      setDebugState((prevState) => !prevState)
-    },
-  }
-
-  const fileExtensionsFuncs = {
-    onChangeNewFileExtension: (event) => {
-      setNewFileExtensionValue(event.target.value)
-    },
-    removeFileExtension: (itemId) => {
-      setFileExtensions((prevState) =>
-        prevState.filter((item) => item.id !== itemId),
-      )
-    },
-    addFileExtension: (itemId) => {
-      const strippedItemId = itemId.replace(/\s/g, '')
-      if (strippedItemId) {
-        setFileExtensions((prevState) => {
-          const newState = prevState.filter(
-            (item) => item.id !== strippedItemId,
-          )
-          return [...newState, { id: strippedItemId, isChecked: true }]
-        })
-      }
-      setNewFileExtensionValue('')
-    },
-    toggleFileExtension: (itemId) => {
-      setFileExtensions((prevState) =>
-        prevState.map((item) =>
-          item.id === itemId
-            ? { ...item, isChecked: !item.isChecked }
-            : { ...item },
-        ),
-      )
-    },
-  }
-
   const photoExtensionsFuncs = {
+    photoExtensions: photoExtensions,
+    newPhotoExtensionValue: newPhotoExtensionValue,
     onChangeNewPhotoExtension: (event) => {
       setNewPhotoExtensionValue(event.target.value)
     },
@@ -102,57 +108,94 @@ function App() {
     },
   }
 
-  const projectNameFuncs = {
-    onChangeProjectName: (event) => {
-      setProjectName(event.target.value)
+  const [fileExtensions, setFileExtensions] = React.useState(
+    defaultValues.allowedFileExtensions,
+  )
+  const [newFileExtensionValue, setNewFileExtensionValue] = React.useState('')
+  const fileExtensionsFuncs = {
+    fileExtensions: fileExtensions,
+    newFileExtensionValue: newFileExtensionValue,
+    onChangeNewFileExtension: (event) => {
+      setNewFileExtensionValue(event.target.value)
+    },
+    removeFileExtension: (itemId) => {
+      setFileExtensions((prevState) =>
+        prevState.filter((item) => item.id !== itemId),
+      )
+    },
+    addFileExtension: (itemId) => {
+      const strippedItemId = itemId.replace(/\s/g, '')
+      if (strippedItemId) {
+        setFileExtensions((prevState) => {
+          const newState = prevState.filter(
+            (item) => item.id !== strippedItemId,
+          )
+          return [...newState, { id: strippedItemId, isChecked: true }]
+        })
+      }
+      setNewFileExtensionValue('')
+    },
+    toggleFileExtension: (itemId) => {
+      setFileExtensions((prevState) =>
+        prevState.map((item) =>
+          item.id === itemId
+            ? { ...item, isChecked: !item.isChecked }
+            : { ...item },
+        ),
+      )
     },
   }
 
-  const maxButtonsAmountFuncs = {
-    incrementMaxButtonsAmount: () => {
-      setMaxButtonsAmount((prevState) => {
-        return prevState < defaultValues.maxButtonsAmount
-          ? prevState + 1
-          : prevState
-      })
-    },
-    decrementMaxButtonsAmount: () => {
-      setMaxButtonsAmount((prevState) => {
-        return prevState > 1 ? prevState - 1 : prevState
-      })
+  const [debugState, setDebugState] = React.useState(defaultValues.debugState)
+  const debugStateFuncs = {
+    debugState: debugState,
+    toggleDebugState: () => {
+      setDebugState((prevState) => !prevState)
     },
   }
 
-  const maxButtonsInRowFuncs = {
-    incrementMaxButtonsInRow: () => {
-      setMaxButtonsInRow((prevState) => {
-        return prevState < defaultValues.maxButtonsInRow
-          ? prevState + 1
-          : prevState
-      })
-    },
-    decrementMaxButtonsInRow: () => {
-      setMaxButtonsInRow((prevState) => {
-        return prevState > 1 ? prevState - 1 : prevState
-      })
-    },
-  }
+  const [pages, setPages] = React.useState(defaultValues.pages)
+  const [currentPageId, setCurrentPageId] = React.useState('')
+  const currentPage =
+    pages.find((page) => page.id === currentPageId) || pages[0]
 
-  const maxRowsFuncs = {
-    incrementMaxRows: () => {
-      setMaxRows((prevState) => {
-        return prevState < defaultValues.maxRows ? prevState + 1 : prevState
-      })
+  const pagesFuncs = {
+    pages: pages,
+    currentPageId: currentPageId,
+    currentPage: currentPage,
+    addEmptyPage: () => {
+      const newPage = {
+        ...defaultValues.emptyPageData,
+        id: nanoid(),
+      }
+      setCurrentPageId(newPage.id)
+      setPages((prevState) => [...prevState, newPage])
     },
-    decrementMaxRows: () => {
-      setMaxRows((prevState) => {
-        return prevState > 1 ? prevState - 1 : prevState
+    removePage: (pageId) => {
+      setPages((prevState) => [
+        ...prevState.filter((page) => page.id !== pageId),
+      ])
+      setCurrentPageId('')
+    },
+    onChangeCurrentPage: (event) => {
+      const { name, value } = event.target
+      setPages((prevState) => {
+        const prevPageState = prevState.find(
+          (page) => page.id === currentPageId,
+        )
+        return [
+          ...prevState.filter((page) => page.id !== currentPageId),
+          {
+            ...prevPageState,
+            [name]: value,
+          },
+        ]
       })
     },
   }
 
   const generalFuncs = {
-    isItemOpenedArrow: (item) => {
+    dropDownArrow: (item) => {
       return item ? (
         <span className='material-symbols-outlined'>expand_less</span>
       ) : (
@@ -166,26 +209,23 @@ function App() {
       <Navbar />
       <div className='main'>
         <LeftSidebar
-          isItemOpened={generalFuncs.isItemOpenedArrow}
-          projectName={projectName}
-          {...projectNameFuncs}
-          maxButtonsAmount={maxButtonsAmount}
-          {...maxButtonsAmountFuncs}
-          maxButtonsInRow={maxButtonsInRow}
-          {...maxButtonsInRowFuncs}
-          maxRows={maxRows}
-          {...maxRowsFuncs}
-          allowedPhotoExtensions={photoExtensions}
-          newPhotoExtensionValue={newPhotoExtensionValue}
-          {...photoExtensionsFuncs}
-          allowedFileExtensions={fileExtensions}
-          newFileExtensionValue={newFileExtensionValue}
-          {...fileExtensionsFuncs}
-          debugState={debugState}
-          {...debugStateFuncs}
+          dropDownArrow={generalFuncs.dropDownArrow}
+          projectNameFuncs={projectNameFuncs}
+          maxButtonsAmountFuncs={maxButtonsAmountFuncs}
+          maxButtonsInRowFuncs={maxButtonsInRowFuncs}
+          maxRowsFuncs={maxRowsFuncs}
+          photoExtensionsFuncs={photoExtensionsFuncs}
+          fileExtensionsFuncs={fileExtensionsFuncs}
+          debugStateFuncs={debugStateFuncs}
         />
-        <Page projectName={projectName} />
-        <RightSidebar />
+        <PreviewConstructor
+          projectNameFuncs={projectNameFuncs}
+          pagesFuncs={pagesFuncs}
+        />
+        <RightSidebar
+          dropDownArrow={generalFuncs.dropDownArrow}
+          pagesFuncs={pagesFuncs}
+        />
       </div>
     </>
   )

@@ -1,33 +1,37 @@
 import React from 'react'
 import '../Sidebar.css'
 import DropDownItem from './DropDownItem'
-import AllowedItem from './AllowedItem'
+import AllowedItem from '../AllowedItem'
 
 export default function AllowedFileExtensionsContainer(props) {
   const [itemOpened, setItemOpened] = React.useState(false)
+
   function toggleOpened() {
     setItemOpened((prevState) => !prevState)
   }
 
   const handleEnterPress = (key) => {
     if (key.code === 'Enter') {
-      props.addFileExtension(props.newFileExtensionValue)
+      props.fileExtensionsFuncs.addFileExtension(
+        props.fileExtensionsFuncs.newFileExtensionValue,
+      )
     }
   }
 
-  const extensions = props.allowedFileExtensions.map((item) => (
+  const extensions = props.fileExtensionsFuncs.fileExtensions.map((item) => (
     <AllowedItem
       key={item.id}
       id={item.id}
       isChecked={item.isChecked}
-      onClick={() => props.toggleFileExtension(item.id)}
-      onRemove={() => props.removeFileExtension(item.id)}
+      onClick={() => props.fileExtensionsFuncs.toggleFileExtension(item.id)}
+      onRemove={() => props.fileExtensionsFuncs.removeFileExtension(item.id)}
     />
   ))
+
   return (
     <div className='allowed-file-extensions-container'>
       <DropDownItem
-        {...props}
+        dropDownArrow={props.dropDownArrow}
         toggleItem={toggleOpened}
         isItemCurrentOpened={itemOpened}
         dropDownItemName='Allowed File extensions'
@@ -40,13 +44,17 @@ export default function AllowedFileExtensionsContainer(props) {
             type='text'
             placeholder='Add new'
             maxLength={5}
-            onChange={props.onChangeNewFileExtension}
+            onChange={props.fileExtensionsFuncs.onChangeNewFileExtension}
             onKeyDown={handleEnterPress}
-            value={props.newFileExtensionValue}
+            value={props.fileExtensionsFuncs.newFileExtensionValue}
           />
           <span
             className='material-symbols-outlined clickable'
-            onClick={() => props.addFileExtension(props.newFileExtensionValue)}
+            onClick={() =>
+              props.fileExtensionsFuncs.addFileExtension(
+                props.fileExtensionsFuncs.newFileExtensionValue,
+              )
+            }
           >
             done
           </span>

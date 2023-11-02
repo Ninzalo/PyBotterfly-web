@@ -5,8 +5,14 @@ import './Page.css'
 export default function Page(props) {
   return (
     <div className='page'>
-      <TopInfoContainer projectName={props.projectName} />
-      <MessageContainer projectName={props.projectName} />
+      <TopInfoContainer
+        projectName={props.projectName}
+        onDelete={() => props.pagesFuncs.removePage(props.internalPageId)}
+      />
+      <MessageContainer
+        projectName={props.projectName}
+        pagesFuncs={props.pagesFuncs}
+      />
       <ButtonsContainer />
     </div>
   )
@@ -21,6 +27,12 @@ function TopInfoContainer(props) {
     <div className='top-info'>
       <BotLogo />
       <h2>{props.projectName}</h2>
+      <span
+        className='material-symbols-outlined clickable trash-ico'
+        onClick={props.onDelete}
+      >
+        delete
+      </span>
     </div>
   )
 }
@@ -31,7 +43,7 @@ function MessageContainer(props) {
       <BotLogo />
       <div className='message-output'>
         <h3>{props.projectName}</h3>
-        <div className='textarea'>Input text here...</div>
+        <div className='textarea'>{props.pagesFuncs.currentPage.text}</div>
         <InlineButtonsContainer />
       </div>
     </div>

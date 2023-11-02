@@ -106,7 +106,6 @@ input {
   flex-direction: row;
   align-items: center;
   margin-top: 10px;
-  margin-bottom: 10px;
 }
 
 .add-extension > input {
@@ -158,8 +157,27 @@ input {
   margin-right: auto;
 }
 
+.empty-bottom-space {
+  height: 10px;
+  width: 100%;
+}
+
 .left-sidebar {
 }
 
 .right-sidebar {
+}
+
+.message-text-container > textarea {
+  background-color: #404040;
+  border: 1px solid white;
+  border-radius: 6px;
+  font-size: 1.2rem;
+
+  width: 80%;
+  height: 100%;
+  resize: none;
+
+  margin: 0 auto;
+  padding: 3px 6px;
 }

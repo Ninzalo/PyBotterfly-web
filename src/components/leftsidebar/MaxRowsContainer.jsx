@@ -5,13 +5,15 @@ import { defaultValues } from '../../DefaultValues'
 
 export default function MaxRowsContainer(props) {
   const [itemOpened, setItemOpened] = React.useState(false)
+
   function toggleOpened() {
     setItemOpened((prevState) => !prevState)
   }
+
   return (
     <div className='max-rows-container'>
       <DropDownItem
-        {...props}
+        dropDownArrow={props.dropDownArrow}
         toggleItem={toggleOpened}
         isItemCurrentOpened={itemOpened}
         dropDownItemName='Max Rows on page'
@@ -21,18 +23,20 @@ export default function MaxRowsContainer(props) {
         <div className='counter'>
           <div
             className={`circle clickable ${
-              props.maxRows === 1 ? ' unavailable' : ''
+              props.maxRowsFuncs.maxRows === 1 ? ' unavailable' : ''
             }`}
-            onClick={props.decrementMaxRows}
+            onClick={props.maxRowsFuncs.decrementMaxRows}
           >
             -
           </div>
-          <h3>{props.maxRows}</h3>
+          <h3>{props.maxRowsFuncs.maxRows}</h3>
           <div
             className={`circle clickable ${
-              props.maxRows === defaultValues.maxRows ? ' unavailable' : ''
+              props.maxRowsFuncs.maxRows === defaultValues.maxRows
+                ? ' unavailable'
+                : ''
             }`}
-            onClick={props.incrementMaxRows}
+            onClick={props.maxRowsFuncs.incrementMaxRows}
           >
             +
           </div>

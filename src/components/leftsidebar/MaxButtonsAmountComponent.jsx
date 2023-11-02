@@ -5,6 +5,7 @@ import { defaultValues } from '../../DefaultValues'
 
 export default function MaxButtonsAmountContainer(props) {
   const [itemOpened, setItemOpened] = React.useState(false)
+
   function toggleOpened() {
     setItemOpened((prevState) => !prevState)
   }
@@ -12,7 +13,7 @@ export default function MaxButtonsAmountContainer(props) {
   return (
     <div className='max-buttons-amount'>
       <DropDownItem
-        {...props}
+        dropDownArrow={props.dropDownArrow}
         toggleItem={toggleOpened}
         isItemCurrentOpened={itemOpened}
         dropDownItemName='Max Buttons Amount'
@@ -21,20 +22,23 @@ export default function MaxButtonsAmountContainer(props) {
         <div className='counter'>
           <div
             className={`circle clickable ${
-              props.maxButtonsAmount === 1 ? ' unavailable' : ''
-            }`}
-            onClick={props.decrementMaxButtonsAmount}
-          >
-            -
-          </div>
-          <h3>{props.maxButtonsAmount}</h3>
-          <div
-            className={`circle clickable ${
-              props.maxButtonsAmount === defaultValues.maxButtonsAmount
+              props.maxButtonsAmountFuncs.maxButtonsAmount === 1
                 ? ' unavailable'
                 : ''
             }`}
-            onClick={props.incrementMaxButtonsAmount}
+            onClick={props.maxButtonsAmountFuncs.decrementMaxButtonsAmount}
+          >
+            -
+          </div>
+          <h3>{props.maxButtonsAmountFuncs.maxButtonsAmount}</h3>
+          <div
+            className={`circle clickable ${
+              props.maxButtonsAmountFuncs.maxButtonsAmount ===
+              defaultValues.maxButtonsAmount
+                ? ' unavailable'
+                : ''
+            }`}
+            onClick={props.maxButtonsAmountFuncs.incrementMaxButtonsAmount}
           >
             +
           </div>

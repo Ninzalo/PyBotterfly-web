@@ -12,13 +12,35 @@ export default function LeftSidebar(props) {
   return (
     <div className='sidebar left-sidebar'>
       <h1>General Settings</h1>
-      <ProjectNameContainer {...props} />
-      <MaxButtonsAmountContainer {...props} />
-      <MaxButtonsInRowContainer {...props} />
-      <MaxRowsContainer {...props} />
-      <AllowedPhotoExtensionsContainer {...props} />
-      <AllowedFileExtensionsContainer {...props} />
-      <DebugStateContainer {...props} />
+      <ProjectNameContainer
+        dropDownArrow={props.dropDownArrow}
+        projectNameFuncs={props.projectNameFuncs}
+      />
+      <MaxButtonsAmountContainer
+        dropDownArrow={props.dropDownArrow}
+        maxButtonsAmountFuncs={props.maxButtonsAmountFuncs}
+      />
+      <MaxButtonsInRowContainer
+        dropDownArrow={props.dropDownArrow}
+        maxButtonsInRowFuncs={props.maxButtonsInRowFuncs}
+      />
+      <MaxRowsContainer
+        dropDownArrow={props.dropDownArrow}
+        maxRowsFuncs={props.maxRowsFuncs}
+      />
+      <AllowedPhotoExtensionsContainer
+        dropDownArrow={props.dropDownArrow}
+        photoExtensionsFuncs={props.photoExtensionsFuncs}
+      />
+      <AllowedFileExtensionsContainer
+        dropDownArrow={props.dropDownArrow}
+        fileExtensionsFuncs={props.fileExtensionsFuncs}
+      />
+      <DebugStateContainer
+        dropDownArrow={props.dropDownArrow}
+        debugStateFuncs={props.debugStateFuncs}
+      />
+      <div className='empty-bottom-space'></div>
     </div>
   )
 }

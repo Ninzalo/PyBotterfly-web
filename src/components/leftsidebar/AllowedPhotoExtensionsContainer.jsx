@@ -1,34 +1,37 @@
 import React from 'react'
 import '../Sidebar.css'
 import DropDownItem from './DropDownItem'
-import AllowedItem from './AllowedItem'
+import AllowedItem from '../AllowedItem'
 
 export default function AllowedPhotoExtensionsContainer(props) {
   const [itemOpened, setItemOpened] = React.useState(false)
+
   function toggleOpened() {
     setItemOpened((prevState) => !prevState)
   }
 
   const handleEnterPress = (key) => {
     if (key.code === 'Enter') {
-      props.addPhotoExtension(props.newPhotoExtensionValue)
+      props.photoExtensionsFuncs.addPhotoExtension(
+        props.photoExtensionsFuncs.newPhotoExtensionValue,
+      )
     }
   }
 
-  const extensions = props.allowedPhotoExtensions.map((item) => (
+  const extensions = props.photoExtensionsFuncs.photoExtensions.map((item) => (
     <AllowedItem
       key={item.id}
       id={item.id}
       isChecked={item.isChecked}
-      onClick={() => props.togglePhotoExtension(item.id)}
-      onRemove={() => props.removePhotoExtension(item.id)}
+      onClick={() => props.photoExtensionsFuncs.togglePhotoExtension(item.id)}
+      onRemove={() => props.photoExtensionsFuncs.removePhotoExtension(item.id)}
     />
   ))
 
   return (
     <div className='allowed-photo-extensions-container'>
       <DropDownItem
-        {...props}
+        dropDownArrow={props.dropDownArrow}
         toggleItem={toggleOpened}
         isItemCurrentOpened={itemOpened}
         dropDownItemName='Allowed Photo extensions'
@@ -41,14 +44,16 @@ export default function AllowedPhotoExtensionsContainer(props) {
             type='text'
             placeholder='Add new'
             maxLength={5}
-            onChange={props.onChangeNewPhotoExtension}
+            onChange={props.photoExtensionsFuncs.onChangeNewPhotoExtension}
             onKeyDown={handleEnterPress}
-            value={props.newPhotoExtensionValue}
+            value={props.photoExtensionsFuncs.newPhotoExtensionValue}
           />
           <span
             className='material-symbols-outlined clickable'
             onClick={() =>
-              props.addPhotoExtension(props.newPhotoExtensionValue)
+              props.photoExtensionsFuncs.addPhotoExtension(
+                props.photoExtensionsFuncs.newPhotoExtensionValue,
+              )
             }
           >
             done

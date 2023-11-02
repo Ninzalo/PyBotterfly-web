@@ -5,6 +5,7 @@ import { defaultValues } from '../../DefaultValues'
 
 export default function MaxButtonsInRowContainer(props) {
   const [itemOpened, setItemOpened] = React.useState(false)
+
   function toggleOpened() {
     setItemOpened((prevState) => !prevState)
   }
@@ -12,7 +13,7 @@ export default function MaxButtonsInRowContainer(props) {
   return (
     <div className='max-buttons-in-row'>
       <DropDownItem
-        {...props}
+        dropDownArrow={props.dropDownArrow}
         toggleItem={toggleOpened}
         isItemCurrentOpened={itemOpened}
         dropDownItemName='Max Buttons in a row'
@@ -21,20 +22,23 @@ export default function MaxButtonsInRowContainer(props) {
         <div className='counter'>
           <div
             className={`circle clickable ${
-              props.maxButtonsInRow === 1 ? ' unavailable' : ''
-            }`}
-            onClick={props.decrementMaxButtonsInRow}
-          >
-            -
-          </div>
-          <h3>{props.maxButtonsInRow}</h3>
-          <div
-            className={`circle clickable ${
-              props.maxButtonsInRow === defaultValues.maxButtonsInRow
+              props.maxButtonsInRowFuncs.maxButtonsInRow === 1
                 ? ' unavailable'
                 : ''
             }`}
-            onClick={props.incrementMaxButtonsInRow}
+            onClick={props.maxButtonsInRowFuncs.decrementMaxButtonsInRow}
+          >
+            -
+          </div>
+          <h3>{props.maxButtonsInRowFuncs.maxButtonsInRow}</h3>
+          <div
+            className={`circle clickable ${
+              props.maxButtonsInRowFuncs.maxButtonsInRow ===
+              defaultValues.maxButtonsInRow
+                ? ' unavailable'
+                : ''
+            }`}
+            onClick={props.maxButtonsInRowFuncs.incrementMaxButtonsInRow}
           >
             +
           </div>
