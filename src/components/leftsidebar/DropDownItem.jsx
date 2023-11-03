@@ -1,5 +1,4 @@
 import React from 'react'
-import '../Sidebar.css'
 
 export default function DropDownItem(props) {
   return (

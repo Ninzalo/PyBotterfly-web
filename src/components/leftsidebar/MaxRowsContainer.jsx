@@ -1,5 +1,4 @@
 import React from 'react'
-import '../Sidebar.css'
 import DropDownItem from './DropDownItem'
 import { defaultValues } from '../../DefaultValues'
 
