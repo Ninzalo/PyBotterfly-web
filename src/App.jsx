@@ -1,5 +1,5 @@
 import React from 'react'
-import Navbar from './components/Navbar'
+import Navbar from './components/navbar/Navbar'
 import PreviewConstructor from './components/pages/PreviewConstructor'
 import LeftSidebar from './components/leftsidebar/LeftSidebar.jsx'
 import RightSidebar from './components/rightsidebar/RightSidebar'

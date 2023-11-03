@@ -1,6 +1,6 @@
 import React from 'react'
-import '../Sidebar.css'
 import DropDownItem from './DropDownItem'
+import Switch from '../switch/Switch'
 
 export default function DebugStateContainer(props) {
   const [itemOpened, setItemOpened] = React.useState(false)
@@ -18,18 +18,10 @@ export default function DebugStateContainer(props) {
         dropDownItemName='Debug State'
       />
       {itemOpened && (
-        <div
-          className='debug-state-container'
-          onClick={props.debugStateFuncs.toggleDebugState}
-        >
-          <div className='switch clickable'>
-            {props.debugStateFuncs.debugState ? (
-              <div className='slider switch-on'></div>
-            ) : (
-              <div className='slider switch-off'></div>
-            )}
-          </div>
-        </div>
+        <Switch
+          toggleSwitch={props.debugStateFuncs.toggleDebugState}
+          switchState={props.debugStateFuncs.debugState}
+        />
       )}
     </div>
   )

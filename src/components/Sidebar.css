@@ -33,7 +33,7 @@
   height: 2.5rem;
 }
 
-input {
+.project-name-container > input {
   background-color: #404040;
   border: 1px solid white;
   border-radius: 6px;
@@ -109,9 +109,16 @@ input {
 }
 
 .add-extension > input {
+  background-color: #404040;
+  border: 1px solid white;
+  border-radius: 6px;
+
   width: 40%;
-  margin-left: 20px;
+  height: 100%;
+
+  margin-left: 25px;
   margin-right: 0;
+  padding: 3px 6px;
 }
 
 .add-extension > span {
@@ -120,41 +127,6 @@ input {
 
 .clickable {
   cursor: pointer;
-}
-
-.switch {
-  border: 2px solid white;
-  border-radius: 15px;
-
-  height: 24px;
-  width: 46px;
-
-  margin: 0;
-  margin-left: 35px;
-  padding: 0;
-}
-
-.switch > .slider {
-  border: none;
-  border-radius: 13px;
-
-  background-color: white;
-
-  height: 24px;
-  width: 24px;
-
-  margin: 0;
-  padding: 0;
-}
-
-.switch > .switch-on {
-  background-color: #4bb34b;
-  margin-left: auto;
-}
-
-.switch > .switch-off {
-  background-color: #ff4d4d;
-  margin-right: auto;
 }
 
 .empty-bottom-space {
