@@ -177,6 +177,9 @@ function App() {
       ])
       setCurrentPageId('')
     },
+    getPagesIds: () => [pages.map((page) => page.pageId)],
+    isPageIdUnique: (pageId) =>
+      pages.find((page) => page.pageId === pageId) ? false : true,
     onChangeCurrentPageText: (event) => {
       const { name, value } = event.target
       setPages((prevState) => {
@@ -222,10 +225,12 @@ function App() {
           projectNameFuncs={projectNameFuncs}
           pagesFuncs={pagesFuncs}
         />
-        <RightSidebar
-          dropDownArrow={generalFuncs.dropDownArrow}
-          pagesFuncs={pagesFuncs}
-        />
+        {pagesFuncs.pages.length > 0 && (
+          <RightSidebar
+            dropDownArrow={generalFuncs.dropDownArrow}
+            pagesFuncs={pagesFuncs}
+          />
+        )}
       </div>
     </>
   )

@@ -6,9 +6,6 @@
   border: none;
   border-radius: 10px;
 
-  width: 20vw;
-  height: 100%;
-
   min-width: 350px;
   min-height: 90vh;
 
@@ -33,7 +30,8 @@
   height: 2.5rem;
 }
 
-.project-name-container > input {
+.project-name-container > input,
+.page-id-container > input {
   background-color: #404040;
   border: 1px solid white;
   border-radius: 6px;
@@ -140,10 +138,28 @@
 .right-sidebar {
 }
 
-.message-text-container > textarea {
-  background-color: #404040;
+.sidebar > h1 {
+  margin: 0;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.sidebar > h2 {
+  margin: 0 auto;
+  margin-bottom: 10px;
+}
+
+.page-id-display {
   border: 1px solid white;
   border-radius: 6px;
+  width: 80%;
+}
+
+.message-text-container > textarea {
+  border: 1px solid white;
+  border-radius: 6px;
+
+  background-color: #404040;
   font-size: 1.2rem;
 
   width: 80%;
@@ -152,4 +168,16 @@
 
   margin: 0 auto;
   padding: 3px 6px;
+}
+
+.warning-text {
+  border: 1px solid white;
+  border-radius: 6px;
+
+  background-color: rgb(254, 110, 114, 0.5);
+  color: white;
+
+  width: 80%;
+
+  margin: 0 auto;
 }
