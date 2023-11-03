@@ -3,26 +3,20 @@ import Page from './Page.jsx'
 import './Page.css'
 
 export default function PreviewConstructor(props) {
-  const prewievPage = props.pagesFuncs.pages.filter(
-    (page) => page.id === props.pagesFuncs.currentPageId,
-  )[0]
   let page
-
-  if (prewievPage) {
+  if (props.pagesFuncs.currentPage) {
     page = (
       <Page
-        key={prewievPage.id}
-        internalPageId={prewievPage.id}
+        key={props.pagesFuncs.currentPage.id}
+        internalPageId={props.pagesFuncs.currentPage.id}
         projectName={props.projectNameFuncs.projectName}
         pagesFuncs={props.pagesFuncs}
       />
     )
-  } else {
-    page = ''
   }
 
   return (
-    <div>
+    <>
       {!page ? (
         <div
           className='empty-pages-list clickable'
@@ -35,6 +29,6 @@ export default function PreviewConstructor(props) {
       ) : (
         page
       )}
-    </div>
+    </>
   )
 }
