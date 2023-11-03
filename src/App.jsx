@@ -179,7 +179,7 @@ function App() {
     },
     getPagesIds: () => [pages.map((page) => page.pageId)],
     isPageIdUnique: (pageId) =>
-      pages.find((page) => page.pageId === pageId) ? false : true,
+      pages.filter((page) => page.pageId === pageId).length === 1,
     onChangeCurrentPageText: (event) => {
       const { name, value } = event.target
       setPages((prevState) => {

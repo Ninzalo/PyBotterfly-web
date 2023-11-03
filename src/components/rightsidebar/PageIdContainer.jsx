@@ -16,7 +16,7 @@ export default function PageIdContainer(props) {
         )}
       {props.pagesFuncs.pages.length > 0 &&
         props.pagesFuncs.currentPage?.pageId !== '' &&
-        props.pagesFuncs.isPageIdUnique(
+        !props.pagesFuncs.isPageIdUnique(
           props.pagesFuncs.currentPage?.pageId,
         ) && <p className='warning-text'>Page ID must be unique</p>}
       {props.pagesFuncs.pages.length > 0 && (
