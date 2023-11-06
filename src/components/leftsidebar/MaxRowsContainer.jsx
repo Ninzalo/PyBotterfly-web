@@ -22,7 +22,9 @@ export default function MaxRowsContainer(props) {
         <div className='counter'>
           <div
             className={`circle clickable ${
-              props.maxRowsFuncs.maxRows === 1 ? ' unavailable' : ''
+              (props.maxRowsFuncs.maxRows === 1 ||
+                !props.maxRowsFuncs.allowEdit) &&
+              'unavailable'
             }`}
             onClick={props.maxRowsFuncs.decrementMaxRows}
           >
@@ -31,9 +33,9 @@ export default function MaxRowsContainer(props) {
           <h3>{props.maxRowsFuncs.maxRows}</h3>
           <div
             className={`circle clickable ${
-              props.maxRowsFuncs.maxRows === defaultValues.maxRows
-                ? ' unavailable'
-                : ''
+              (props.maxRowsFuncs.maxRows === defaultValues.maxRows ||
+                !props.maxRowsFuncs.allowEdit) &&
+              'unavailable'
             }`}
             onClick={props.maxRowsFuncs.incrementMaxRows}
           >

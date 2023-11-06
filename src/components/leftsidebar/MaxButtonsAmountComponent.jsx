@@ -21,9 +21,9 @@ export default function MaxButtonsAmountContainer(props) {
         <div className='counter'>
           <div
             className={`circle clickable ${
-              props.maxButtonsAmountFuncs.maxButtonsAmount === 1
-                ? ' unavailable'
-                : ''
+              (props.maxButtonsAmountFuncs.maxButtonsAmount === 1 ||
+                !props.maxButtonsAmountFuncs.allowEdit) &&
+              'unavailable'
             }`}
             onClick={props.maxButtonsAmountFuncs.decrementMaxButtonsAmount}
           >
@@ -32,10 +32,10 @@ export default function MaxButtonsAmountContainer(props) {
           <h3>{props.maxButtonsAmountFuncs.maxButtonsAmount}</h3>
           <div
             className={`circle clickable ${
-              props.maxButtonsAmountFuncs.maxButtonsAmount ===
-              defaultValues.maxButtonsAmount
-                ? ' unavailable'
-                : ''
+              (props.maxButtonsAmountFuncs.maxButtonsAmount ===
+                defaultValues.maxButtonsAmount ||
+                !props.maxButtonsAmountFuncs.allowEdit) &&
+              'unavailable'
             }`}
             onClick={props.maxButtonsAmountFuncs.incrementMaxButtonsAmount}
           >

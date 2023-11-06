@@ -3,6 +3,7 @@ import Button from './Button.jsx'
 import './Page.css'
 
 export default function Page(props) {
+  const keyboardType = props.pagesFuncs.currentPage.keyboardType
   return (
     <div className='page'>
       <TopInfoContainer
@@ -13,7 +14,9 @@ export default function Page(props) {
         projectName={props.projectName}
         pagesFuncs={props.pagesFuncs}
       />
-      <ButtonsContainer />
+      {(keyboardType === 'empty' || keyboardType === 'default') && (
+        <ButtonsContainer pagesFuncs={props.pagesFuncs} />
+      )}
     </div>
   )
 }
@@ -38,40 +41,112 @@ function TopInfoContainer(props) {
 }
 
 function MessageContainer(props) {
+  const keyboardType = props.pagesFuncs.currentPage.keyboardType
   return (
     <div className='message-container'>
       <BotLogo />
       <div className='message-output'>
         <h3>{props.projectName}</h3>
         <div className='textarea'>{props.pagesFuncs.currentPage.text}</div>
-        <InlineButtonsContainer />
+        {(keyboardType === 'empty' || keyboardType === 'inline') && (
+          <InlineButtonsContainer pagesFuncs={props.pagesFuncs} />
+        )}
       </div>
     </div>
   )
 }
 
-function InlineButtonsContainer() {
+function generateRows(props, onClickNewType) {
+  let buttonRowsContainers = props.pagesFuncs.currentPage?.rows
+    .sort((a, b) => a.rowNum - b.rowNum)
+    .map((row) => {
+      const handleEmptyRowClick = () =>
+        props.pagesFuncs.keyboard.addButtonAndRow(row.rowNum)
+      const handleIncompleteRowClick = () =>
+        props.pagesFuncs.keyboard.addButtonInRow(row.rowNum)
+      const handleChangeKeyboardType = () =>
+        props.pagesFuncs.keyboard.changeType(onClickNewType)
+      return (
+        <ButtonRowContainer
+          key={row.rowNum}
+          buttons={row.buttons}
+          rowNum={row.rowNum}
+          pagesFuncs={props.pagesFuncs}
+          handleEmptyRowClick={handleEmptyRowClick}
+          handleIncompleteRowClick={handleIncompleteRowClick}
+          handleChangeKeyboardType={handleChangeKeyboardType}
+        />
+      )
+    })
+  return buttonRowsContainers
+}
+
+function InlineButtonsContainer(props) {
+  const onClickNewType = 'inline'
   return (
     <div className='inline-buttons-container'>
-      <ButtonRowsContainer />
-      <ButtonRowsContainer />
+      {generateRows(props, onClickNewType)}
     </div>
   )
 }
 
-function ButtonsContainer() {
+function ButtonsContainer(props) {
+  const onClickNewType = 'default'
   return (
     <div className='buttons-container'>
-      <ButtonRowsContainer />
+      {generateRows(props, onClickNewType)}
     </div>
   )
 }
 
-function ButtonRowsContainer() {
-  return (
-    <div className='button-rows-container'>
-      <Button color='blue' />
-      <Button color='blue' />
-    </div>
+function ButtonRowContainer(props) {
+  const buttons = props.buttons?.map((button) => (
+    <Button
+      key={button.id}
+      label={button.label}
+      color={button.color}
+      onClick={() => {}}
+    />
+  ))
+
+  const emptyRowButton = (
+    <Button
+      key={`emptyRow${props.rowNum}`}
+      label='+'
+      color='positive'
+      onClick={() => {
+        props.handleEmptyRowClick()
+        props.handleChangeKeyboardType()
+      }}
+    />
   )
+
+  const incompleteRowButton = (
+    <Button
+      key={`incompleteRow${props.rowNum}`}
+      label='+'
+      color='positive'
+      onClick={props.handleIncompleteRowClick}
+    />
+  )
+
+  if (
+    props.pagesFuncs.keyboard.countButtonsAmount() <
+    props.pagesFuncs.keyboard.maxButtonsAmount
+  ) {
+    if (
+      buttons.length === 0 &&
+      props.pagesFuncs.keyboard.currentPageRows().length - 1 <
+        props.pagesFuncs.keyboard.maxRows
+    ) {
+      buttons.push(emptyRowButton)
+    } else if (
+      buttons.length > 0 &&
+      buttons.length < props.pagesFuncs.keyboard.maxButtonsInRow
+    ) {
+      buttons.push(incompleteRowButton)
+    }
+  }
+
+  return <div className='button-row-container'>{buttons}</div>
 }

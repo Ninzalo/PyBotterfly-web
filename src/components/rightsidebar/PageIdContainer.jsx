@@ -11,11 +11,11 @@ export default function PageIdContainer(props) {
   return (
     <div className='page-id-container'>
       {props.pagesFuncs.pages.length > 0 &&
-        props.pagesFuncs.currentPage?.pageId === '' && (
+        props.pagesFuncs.currentPage.pageId === '' && (
           <p className='warning-text'>Page ID must be filled</p>
         )}
       {props.pagesFuncs.pages.length > 0 &&
-        props.pagesFuncs.currentPage?.pageId !== '' &&
+        props.pagesFuncs.currentPage.pageId !== '' &&
         !props.pagesFuncs.isPageIdUnique(
           props.pagesFuncs.currentPage?.pageId,
         ) && <p className='warning-text'>Page ID must be unique</p>}
@@ -33,7 +33,7 @@ export default function PageIdContainer(props) {
           placeholder='Page ID'
           maxLength={25}
           name='pageId'
-          onChange={props.pagesFuncs.onChangeCurrentPageText}
+          onChange={props.pagesFuncs.onChangeCurrentPageId}
           value={props.pagesFuncs.currentPage?.pageId}
         />
       )}

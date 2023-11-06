@@ -36,16 +36,29 @@ const defaultFileExtensions = [
   },
 ]
 
+export const emptyButtonData = {
+  id: '',
+  num: 0,
+  label: 'Button',
+  color: 'primary',
+  action: '',
+}
+
+export const emptyRowData = {
+  rowNum: 0,
+  buttons: [],
+}
+
 const emptyPageData = {
   id: '',
   pageId: '',
   text: 'Enter message text',
-  buttons: [],
+  keyboardType: 'empty',
+  rows: [emptyRowData],
 }
 
-const emptyButtonData = {}
-
 export const defaultValues = {
+  allowEdit: true,
   maxButtonsAmount: 20,
   maxButtonsInRow: 4,
   maxRows: 6,

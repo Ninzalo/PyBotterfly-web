@@ -3,7 +3,7 @@ import Navbar from './components/navbar/Navbar'
 import PreviewConstructor from './components/pages/PreviewConstructor'
 import LeftSidebar from './components/leftsidebar/LeftSidebar.jsx'
 import RightSidebar from './components/rightsidebar/RightSidebar'
-import { defaultValues } from './DefaultValues'
+import { defaultValues, emptyRowData, emptyButtonData } from './DefaultValues'
 import { nanoid } from 'nanoid'
 
 function App() {
@@ -17,22 +17,27 @@ function App() {
     },
   }
 
+  const [allowEdit, setAllowEdit] = React.useState(defaultValues.allowEdit)
+
   const [maxButtonsAmount, setMaxButtonsAmount] = React.useState(
     defaultValues.maxButtonsAmount,
   )
   const maxButtonsAmountFuncs = {
+    allowEdit: allowEdit,
     maxButtonsAmount: maxButtonsAmount,
     incrementMaxButtonsAmount: () => {
-      setMaxButtonsAmount((prevState) => {
-        return prevState < defaultValues.maxButtonsAmount
-          ? prevState + 1
-          : prevState
-      })
+      allowEdit &&
+        setMaxButtonsAmount((prevState) => {
+          return prevState < defaultValues.maxButtonsAmount
+            ? prevState + 1
+            : prevState
+        })
     },
     decrementMaxButtonsAmount: () => {
-      setMaxButtonsAmount((prevState) => {
-        return prevState > 1 ? prevState - 1 : prevState
-      })
+      allowEdit &&
+        setMaxButtonsAmount((prevState) => {
+          return prevState > 1 ? prevState - 1 : prevState
+        })
     },
   }
 
@@ -40,33 +45,39 @@ function App() {
     defaultValues.maxButtonsInRow,
   )
   const maxButtonsInRowFuncs = {
+    allowEdit: allowEdit,
     maxButtonsInRow: maxButtonsInRow,
     incrementMaxButtonsInRow: () => {
-      setMaxButtonsInRow((prevState) => {
-        return prevState < defaultValues.maxButtonsInRow
-          ? prevState + 1
-          : prevState
-      })
+      allowEdit &&
+        setMaxButtonsInRow((prevState) => {
+          return prevState < defaultValues.maxButtonsInRow
+            ? prevState + 1
+            : prevState
+        })
     },
     decrementMaxButtonsInRow: () => {
-      setMaxButtonsInRow((prevState) => {
-        return prevState > 1 ? prevState - 1 : prevState
-      })
+      allowEdit &&
+        setMaxButtonsInRow((prevState) => {
+          return prevState > 1 ? prevState - 1 : prevState
+        })
     },
   }
 
   const [maxRows, setMaxRows] = React.useState(defaultValues.maxRows)
   const maxRowsFuncs = {
+    allowEdit: allowEdit,
     maxRows: maxRows,
     incrementMaxRows: () => {
-      setMaxRows((prevState) => {
-        return prevState < defaultValues.maxRows ? prevState + 1 : prevState
-      })
+      allowEdit &&
+        setMaxRows((prevState) => {
+          return prevState < defaultValues.maxRows ? prevState + 1 : prevState
+        })
     },
     decrementMaxRows: () => {
-      setMaxRows((prevState) => {
-        return prevState > 1 ? prevState - 1 : prevState
-      })
+      allowEdit &&
+        setMaxRows((prevState) => {
+          return prevState > 1 ? prevState - 1 : prevState
+        })
     },
   }
 
@@ -156,22 +167,24 @@ function App() {
 
   const [pages, setPages] = React.useState(defaultValues.pages)
   const [currentPageId, setCurrentPageId] = React.useState('')
-  const currentPage =
-    pages.find((page) => page.id === currentPageId) || pages[0]
 
   const pagesFuncs = {
     pages: pages,
     currentPageId: currentPageId,
-    currentPage: currentPage,
+    currentPage: pages.find((page) => page.id === currentPageId),
+    getCurrentPage: () =>
+      pagesFuncs.pages.find((page) => page.id === currentPageId),
     addEmptyPage: () => {
       const newPage = {
         ...defaultValues.emptyPageData,
         id: nanoid(),
       }
+      setAllowEdit(false)
       setCurrentPageId(newPage.id)
       setPages((prevState) => [...prevState, newPage])
     },
     removePage: (pageId) => {
+      pages.length - 1 === 0 && setAllowEdit(true)
       setPages((prevState) => [
         ...prevState.filter((page) => page.id !== pageId),
       ])
@@ -180,20 +193,106 @@ function App() {
     getPagesIds: () => [pages.map((page) => page.pageId)],
     isPageIdUnique: (pageId) =>
       pages.filter((page) => page.pageId === pageId).length === 1,
-    onChangeCurrentPageText: (event) => {
-      const { name, value } = event.target
+    changeCurrentPageField: (name, value) => {
       setPages((prevState) => {
         const prevPageState = prevState.find(
           (page) => page.id === currentPageId,
         )
-        return [
-          ...prevState.filter((page) => page.id !== currentPageId),
+        const prevPagesStateWithoutCurrentPage = prevState.filter(
+          (page) => page !== prevPageState,
+        )
+        const newPageState = {
+          ...prevPageState,
+          [name]: value,
+        }
+        return [...prevPagesStateWithoutCurrentPage, newPageState]
+      })
+    },
+    onChangeCurrentPageText: (event) => {
+      const { name, value } = event.target
+      pagesFuncs.changeCurrentPageField(name, value)
+    },
+    onChangeCurrentPageId: (event) => {
+      const { name, value } = event.target
+      pagesFuncs.changeCurrentPageField(name, value)
+    },
+    keyboard: {
+      maxButtonsAmount: maxButtonsAmount,
+      maxButtonsInRow: maxButtonsInRow,
+      maxRows: maxRows,
+      currentPageRows: () => {
+        const currentPage = pagesFuncs.currentPage
+        const currentPageRows = currentPage.rows
+        return currentPageRows
+      },
+      changeType: (newKeyboardType) => {
+        pagesFuncs.currentPage.keyboardType !== newKeyboardType &&
+          pagesFuncs.changeCurrentPageField('keyboardType', newKeyboardType)
+      },
+      countButtonsAmount: () => {
+        let buttonsAmount = 0
+        pagesFuncs.keyboard
+          .currentPageRows()
+          .forEach((row) => (buttonsAmount += row.buttons.length))
+        return buttonsAmount
+      },
+      findCurrentRow: (rowNum) => {
+        const oldRows = pagesFuncs.keyboard.currentPageRows()
+        const currentRow = oldRows.find((row) => row.rowNum === rowNum)
+        return currentRow
+      },
+      getOldRowsWithoutCurrentRow: (rowNum) => {
+        const oldRows = pagesFuncs.keyboard.currentPageRows()
+        const currentRow = pagesFuncs.keyboard.findCurrentRow(rowNum)
+        const OldRowsWithoutCurrentRow = oldRows.filter(
+          (row) => row !== currentRow,
+        )
+        return OldRowsWithoutCurrentRow
+      },
+      getNewEmptyRow: () => {
+        const oldRows = pagesFuncs.keyboard.currentPageRows()
+        const newRow = { ...emptyRowData, rowNum: oldRows.length }
+        return newRow
+      },
+      getNewButton: (rowNum) => {
+        const currentRow = pagesFuncs.keyboard.findCurrentRow(rowNum)
+        const currentRowButtons = currentRow.buttons
+        const newCurrentRowButtons = [
+          ...currentRowButtons,
           {
-            ...prevPageState,
-            [name]: value,
+            ...emptyButtonData,
+            id: nanoid(),
+            num: currentRowButtons.length,
           },
         ]
-      })
+        const newCurrentRow = { ...currentRow, buttons: newCurrentRowButtons }
+        return newCurrentRow
+      },
+      addRow: () => {
+        const oldRows = pagesFuncs.keyboard.currentPageRows()
+        const newRow = pagesFuncs.keyboard.getNewEmptyRow()
+        const newRows = [...oldRows, newRow]
+        pagesFuncs.changeCurrentPageField('rows', newRows)
+      },
+      addButtonInRow: (rowNum) => {
+        const oldRowsWithoutCurrentRow =
+          pagesFuncs.keyboard.getOldRowsWithoutCurrentRow(rowNum)
+        const newCurrentRow = pagesFuncs.keyboard.getNewButton(rowNum)
+        const newRows = [...oldRowsWithoutCurrentRow, newCurrentRow]
+        pagesFuncs.changeCurrentPageField('rows', newRows)
+      },
+      addButtonAndRow: (rowNum) => {
+        const oldRowsWithoutCurrentRow =
+          pagesFuncs.keyboard.getOldRowsWithoutCurrentRow(rowNum)
+        const newCurrentRow = pagesFuncs.keyboard.getNewButton(rowNum)
+        const newEmptyRow = pagesFuncs.keyboard.getNewEmptyRow()
+        const newRows = [
+          ...oldRowsWithoutCurrentRow,
+          newCurrentRow,
+          newEmptyRow,
+        ]
+        pagesFuncs.changeCurrentPageField('rows', newRows)
+      },
     },
   }
 
