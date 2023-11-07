@@ -10,24 +10,22 @@ export default function PageIdContainer(props) {
 
   return (
     <div className='page-id-container'>
-      {props.pagesFuncs.pages.length > 0 &&
-        props.pagesFuncs.currentPage.pageId === '' && (
-          <p className='warning-text'>Page ID must be filled</p>
-        )}
-      {props.pagesFuncs.pages.length > 0 &&
-        props.pagesFuncs.currentPage.pageId !== '' &&
+      {props.pagesFuncs.currentPage.pageId === '' && (
+        <p className='warning-text'>Page ID must be filled</p>
+      )}
+      {props.pagesFuncs.currentPage.pageId !== '' &&
         !props.pagesFuncs.isPageIdUnique(
           props.pagesFuncs.currentPage?.pageId,
         ) && <p className='warning-text'>Page ID must be unique</p>}
-      {props.pagesFuncs.pages.length > 0 && (
+      {
         <DropDownItem
           dropDownArrow={props.dropDownArrow}
           toggleItem={toggleOpened}
           isItemCurrentOpened={itemOpened}
           dropDownItemName='Page ID'
         />
-      )}
-      {props.pagesFuncs.pages.length > 0 && itemOpened && (
+      }
+      {itemOpened && (
         <input
           type='text'
           placeholder='Page ID'

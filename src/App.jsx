@@ -1,7 +1,8 @@
 import React from 'react'
 import Navbar from './components/navbar/Navbar'
-import PreviewConstructor from './components/pages/PreviewConstructor'
 import LeftSidebar from './components/leftsidebar/LeftSidebar.jsx'
+import PreviewConstructor from './components/pages/PreviewConstructor'
+import PageSelector from './components/page-selector/PageSelector'
 import RightSidebar from './components/rightsidebar/RightSidebar'
 import { defaultValues, emptyRowData, emptyButtonData } from './DefaultValues'
 import { nanoid } from 'nanoid'
@@ -174,6 +175,9 @@ function App() {
     currentPage: pages.find((page) => page.id === currentPageId),
     getCurrentPage: () =>
       pagesFuncs.pages.find((page) => page.id === currentPageId),
+    changeCurrentPage: (pageInternalId) => {
+      setCurrentPageId(pageInternalId)
+    },
     addEmptyPage: () => {
       const newPage = {
         ...defaultValues.emptyPageData,
@@ -184,11 +188,13 @@ function App() {
       setPages((prevState) => [...prevState, newPage])
     },
     removePage: (pageId) => {
-      pages.length - 1 === 0 && setAllowEdit(true)
+      pagesFuncs.pages.length - 1 === 0 && setAllowEdit(true)
+      setCurrentPageId(
+        pagesFuncs.pages.filter((page) => page.id !== pageId)[0]?.id || '',
+      )
       setPages((prevState) => [
         ...prevState.filter((page) => page.id !== pageId),
       ])
-      setCurrentPageId('')
     },
     getPagesIds: () => [pages.map((page) => page.pageId)],
     isPageIdUnique: (pageId) =>
@@ -325,10 +331,16 @@ function App() {
           pagesFuncs={pagesFuncs}
         />
         {pagesFuncs.pages.length > 0 && (
-          <RightSidebar
-            dropDownArrow={generalFuncs.dropDownArrow}
-            pagesFuncs={pagesFuncs}
-          />
+          <>
+            <PageSelector
+              dropDownArrow={generalFuncs.dropDownArrow}
+              pagesFuncs={pagesFuncs}
+            />
+            <RightSidebar
+              dropDownArrow={generalFuncs.dropDownArrow}
+              pagesFuncs={pagesFuncs}
+            />
+          </>
         )}
       </div>
     </>
