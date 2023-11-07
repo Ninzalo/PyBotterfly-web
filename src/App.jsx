@@ -348,11 +348,13 @@ function App() {
               dropDownArrow={generalFuncs.dropDownArrow}
               pagesFuncs={pagesFuncs}
             />
-            <RightSidebar
-              dropDownArrow={generalFuncs.dropDownArrow}
-              pagesFuncs={pagesFuncs}
-            />
           </>
+        )}
+        {pagesFuncs.pages.length > 0 && !previewMode && (
+          <RightSidebar
+            dropDownArrow={generalFuncs.dropDownArrow}
+            pagesFuncs={pagesFuncs}
+          />
         )}
       </div>
     </>
