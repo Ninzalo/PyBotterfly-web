@@ -9,21 +9,23 @@ export default function PageSelector(props) {
     setItemOpened((prevState) => !prevState)
   }
 
-  const pagesIds = props.pagesFuncs.pages.map((page) => (
-    <div
-      key={`${page.id}-${page.pageId}-page-selector`}
-      className='page-selector-item clickable'
-      onClick={() => props.pagesFuncs.changeCurrentPage(page.id)}
-    >
-      <h3
-        className={`${
-          props.pagesFuncs.currentPageId === page.id ? 'active-page' : ''
-        }`}
+  const pagesIds = props.pagesFuncs.pages
+    .sort((a, b) => a.pageId.localeCompare(b.pageId))
+    .map((page) => (
+      <div
+        key={`${page.id}-${page.pageId}-page-selector`}
+        className='page-selector-item clickable'
+        onClick={() => props.pagesFuncs.changeCurrentPage(page.id)}
       >
-        {page.pageId === '' ? 'Unnamed page' : page.pageId}
-      </h3>
-    </div>
-  ))
+        <h3
+          className={`${
+            props.pagesFuncs.currentPageId === page.id ? 'active-page' : ''
+          }`}
+        >
+          {page.pageId === '' ? 'Unnamed page' : page.pageId}
+        </h3>
+      </div>
+    ))
 
   return (
     <div className='page-selector'>
