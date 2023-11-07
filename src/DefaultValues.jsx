@@ -66,6 +66,7 @@ export const defaultValues = {
   allowedPhotoExtensions: defaultPhotoExtensions,
   allowedFileExtensions: defaultFileExtensions,
   debugState: false,
+  previewMode: false,
   pages: [],
   emptyPageData: emptyPageData,
 }

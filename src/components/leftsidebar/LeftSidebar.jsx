@@ -7,6 +7,7 @@ import MaxRowsContainer from './MaxRowsContainer'
 import AllowedPhotoExtensionsContainer from './AllowedPhotoExtensionsContainer'
 import AllowedFileExtensionsContainer from './AllowedFileExtensionsContainer'
 import DebugStateContainer from './DebugStateContainer'
+import PreviewModeContainer from './PreviewModeContainer'
 
 export default function LeftSidebar(props) {
   return (
@@ -39,6 +40,10 @@ export default function LeftSidebar(props) {
       <DebugStateContainer
         dropDownArrow={props.dropDownArrow}
         debugStateFuncs={props.debugStateFuncs}
+      />
+      <PreviewModeContainer
+        dropDownArrow={props.dropDownArrow}
+        previewModeFuncs={props.previewModeFuncs}
       />
       <div className='empty-bottom-space'></div>
     </div>

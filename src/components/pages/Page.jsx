@@ -132,7 +132,8 @@ function ButtonRowContainer(props) {
 
   if (
     props.pagesFuncs.keyboard.countButtonsAmount() <
-    props.pagesFuncs.keyboard.maxButtonsAmount
+      props.pagesFuncs.keyboard.maxButtonsAmount &&
+    !props.pagesFuncs.previewMode
   ) {
     if (
       buttons.length === 0 &&

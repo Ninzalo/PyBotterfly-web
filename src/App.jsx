@@ -166,10 +166,21 @@ function App() {
     },
   }
 
+  const [previewMode, setPreviewMode] = React.useState(
+    defaultValues.previewMode,
+  )
+  const previewModeFuncs = {
+    previewMode: previewMode,
+    togglePreviewMode: () => {
+      setPreviewMode((prevState) => !prevState)
+    },
+  }
+
   const [pages, setPages] = React.useState(defaultValues.pages)
   const [currentPageId, setCurrentPageId] = React.useState('')
 
   const pagesFuncs = {
+    previewMode: previewMode,
     pages: pages,
     currentPageId: currentPageId,
     currentPage: pages.find((page) => page.id === currentPageId),
@@ -325,6 +336,7 @@ function App() {
           photoExtensionsFuncs={photoExtensionsFuncs}
           fileExtensionsFuncs={fileExtensionsFuncs}
           debugStateFuncs={debugStateFuncs}
+          previewModeFuncs={previewModeFuncs}
         />
         <PreviewConstructor
           projectNameFuncs={projectNameFuncs}

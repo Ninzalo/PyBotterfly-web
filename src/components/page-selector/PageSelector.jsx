@@ -38,14 +38,16 @@ export default function PageSelector(props) {
       {itemOpened && (
         <>
           {pagesIds}
-          <div
-            className='page-selector-add-item clickable'
-            onClick={props.pagesFuncs.addEmptyPage}
-          >
-            <div className='line vertical-line top-line'></div>
-            <div className='line horizontal-line'></div>
-            <div className='line vertical-line bottom-line'></div>
-          </div>
+          {!props.pagesFuncs.previewMode && (
+            <div
+              className='page-selector-add-item clickable'
+              onClick={props.pagesFuncs.addEmptyPage}
+            >
+              <div className='line vertical-line top-line'></div>
+              <div className='line horizontal-line'></div>
+              <div className='line vertical-line bottom-line'></div>
+            </div>
+          )}
         </>
       )}
     </div>
