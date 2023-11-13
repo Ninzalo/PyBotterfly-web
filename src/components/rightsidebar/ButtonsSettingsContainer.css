@@ -1,0 +1,117 @@
+.button-settings-container {
+  margin: 0;
+  margin-left: 20px;
+  padding: 0;
+
+  width: auto;
+}
+
+.button-settings {
+  margin: 0;
+  margin-left: 20px;
+  padding: 0;
+
+  width: auto;
+}
+
+.button-label-setting {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+
+  margin: 0;
+  margin-left: 10px;
+  padding: 0;
+
+  width: calc(100% - 10px);
+  height: 100%;
+}
+
+.button-label-setting > .preview {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: start;
+
+  margin: 0;
+  padding: 0;
+
+  width: 100%;
+}
+
+.button-label-setting > .preview > .dropdown {
+  margin: 0;
+  padding: 0;
+}
+
+.button-label-setting > .preview > input {
+  background-color: #404040;
+  border: 1px solid white;
+  border-radius: 6px;
+  text-align: start;
+
+  width: calc(60% - 7px);
+  height: 100%;
+
+  margin: 0;
+  margin-left: 5px;
+  padding: 3px 6px;
+}
+
+.button-label-setting > .details {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+
+  width: calc(100% - 25px);
+  height: 100%;
+
+  margin: 0;
+  margin-left: 25px;
+  padding: 0;
+}
+
+.button-label-setting > .details > .switchbox {
+  margin: 0;
+  padding: 0;
+}
+
+.button-label-setting > .details > h3 {
+  margin: 0;
+  margin-left: 10px;
+  padding: 0;
+}
+
+.button-color-setting {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+
+  margin: 0;
+  margin-left: 10px;
+  padding: 0;
+
+  width: calc(100% - 10px);
+  height: 100%;
+}
+
+.button-color-setting > .dropdown {
+  margin: 0;
+  padding: 0;
+
+  width: 100%;
+}
+
+.button-color-setting > .button-color-picker {
+  margin: 0;
+  margin-left: 25px;
+  padding: 0;
+
+  width: calc(100% - 25px);
+}
+
+.button-color-setting > .button-color-picker > .allowed-item {
+  margin: 0;
+  padding: 0;
+}

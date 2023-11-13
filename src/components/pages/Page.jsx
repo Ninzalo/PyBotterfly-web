@@ -1,5 +1,6 @@
 import React from 'react'
 import Button from './Button.jsx'
+import { emptyButtonData } from '../../DefaultValues'
 import './Page.css'
 
 export default function Page(props) {
@@ -61,9 +62,9 @@ function generateRows(props, onClickNewType) {
     .sort((a, b) => a.rowNum - b.rowNum)
     .map((row) => {
       const handleEmptyRowClick = () =>
-        props.pagesFuncs.keyboard.addButtonAndRow(row.rowNum)
+        props.pagesFuncs.keyboard.addEmptyButtonAndRow(row.rowNum)
       const handleIncompleteRowClick = () =>
-        props.pagesFuncs.keyboard.addButtonInRow(row.rowNum)
+        props.pagesFuncs.keyboard.addEmptyButtonInRow(row.rowNum)
       const handleChangeKeyboardType = () =>
         props.pagesFuncs.keyboard.changeType(onClickNewType)
       return (
@@ -100,14 +101,22 @@ function ButtonsContainer(props) {
 }
 
 function ButtonRowContainer(props) {
-  const buttons = props.buttons?.map((button) => (
-    <Button
-      key={button.id}
-      label={button.label}
-      color={button.color}
-      onClick={() => {}}
-    />
-  ))
+  const buttons = props.buttons
+    ?.sort((a, b) => a.num - b.num)
+    .map((button) => (
+      <Button
+        key={button.id}
+        id={button.id}
+        // label={button.label}
+        label={
+          button.label === emptyButtonData.label
+            ? `${emptyButtonData.label} ${props.rowNum + 1} ${button.num + 1}`
+            : button.label
+        }
+        color={button.color}
+        onClick={() => {}}
+      />
+    ))
 
   const emptyRowButton = (
     <Button

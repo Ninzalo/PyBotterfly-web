@@ -1,8 +1,9 @@
 .switchbox {
-  width: 100%;
   display: flex;
   justify-content: start;
   align-items: center;
+
+  width: auto;
 }
 
 .switch {
@@ -13,7 +14,6 @@
   border-radius: 60px;
   position: relative;
   transition: 0.2s;
-  margin-left: 35px;
 }
 
 .switch::before {

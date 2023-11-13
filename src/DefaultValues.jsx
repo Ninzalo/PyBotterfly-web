@@ -39,9 +39,17 @@ const defaultFileExtensions = [
 export const emptyButtonData = {
   id: '',
   num: 0,
-  label: 'Button',
+  label: 'Btn',
+  isCustomLabel: false,
   color: 'primary',
   action: '',
+  isCustomAction: false,
+}
+
+export const buttonSettingObj = {
+  row: 0,
+  num: 0,
+  button: emptyButtonData,
 }
 
 export const emptyRowData = {
@@ -55,6 +63,21 @@ const emptyPageData = {
   text: 'Enter message text',
   keyboardType: 'empty',
   rows: [emptyRowData],
+}
+
+export const defaultButtonColors = [
+  'primary',
+  'secondary',
+  'negative',
+  'positive',
+]
+
+export const defaultButtonActions = []
+
+export const defaultButtonSettings = {
+  maxLabelLength: 15,
+  colors: defaultButtonColors,
+  actions: defaultButtonActions,
 }
 
 export const defaultValues = {

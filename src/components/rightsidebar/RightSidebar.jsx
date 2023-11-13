@@ -1,7 +1,8 @@
 import React from 'react'
 import '../Sidebar.css'
-import MessageTextContainer from './MessageTextContainer'
 import PageIdContainer from './PageIdContainer'
+import MessageTextContainer from './MessageTextContainer'
+import ButtonsSettingsContainer from './ButtonsSettingsContainer'
 
 export default function RightSidebar(props) {
   return (
@@ -15,6 +16,10 @@ export default function RightSidebar(props) {
         pagesFuncs={props.pagesFuncs}
       />
       <MessageTextContainer
+        dropDownArrow={props.dropDownArrow}
+        pagesFuncs={props.pagesFuncs}
+      />
+      <ButtonsSettingsContainer
         dropDownArrow={props.dropDownArrow}
         pagesFuncs={props.pagesFuncs}
       />

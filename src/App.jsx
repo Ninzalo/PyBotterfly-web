@@ -258,6 +258,28 @@ function App() {
         const currentRow = oldRows.find((row) => row.rowNum === rowNum)
         return currentRow
       },
+      findCurrentButton: (rowNum, buttonNum, buttonId) => {
+        const currentRow = pagesFuncs.keyboard.findCurrentRow(rowNum)
+        const currentButton = currentRow.buttons.find(
+          (button) => button.num === buttonNum && button.id === buttonId,
+        )
+        return currentButton
+      },
+      getCurrentRowWithoutCurrentButton: (rowNum, buttonNum, buttonId) => {
+        const currentRow = pagesFuncs.keyboard.findCurrentRow(rowNum)
+        const currentButton = pagesFuncs.keyboard.findCurrentButton(
+          rowNum,
+          buttonNum,
+          buttonId,
+        )
+        const newRow = {
+          ...currentRow,
+          buttons: currentRow.buttons.filter(
+            (button) => button !== currentButton,
+          ),
+        }
+        return newRow
+      },
       getOldRowsWithoutCurrentRow: (rowNum) => {
         const oldRows = pagesFuncs.keyboard.currentPageRows()
         const currentRow = pagesFuncs.keyboard.findCurrentRow(rowNum)
@@ -285,20 +307,31 @@ function App() {
         const newCurrentRow = { ...currentRow, buttons: newCurrentRowButtons }
         return newCurrentRow
       },
-      addRow: () => {
+      addEmptyRow: () => {
         const oldRows = pagesFuncs.keyboard.currentPageRows()
         const newRow = pagesFuncs.keyboard.getNewEmptyRow()
         const newRows = [...oldRows, newRow]
         pagesFuncs.changeCurrentPageField('rows', newRows)
       },
-      addButtonInRow: (rowNum) => {
+      addEmptyButtonInRow: (rowNum) => {
         const oldRowsWithoutCurrentRow =
           pagesFuncs.keyboard.getOldRowsWithoutCurrentRow(rowNum)
         const newCurrentRow = pagesFuncs.keyboard.getNewButton(rowNum)
         const newRows = [...oldRowsWithoutCurrentRow, newCurrentRow]
         pagesFuncs.changeCurrentPageField('rows', newRows)
       },
-      addButtonAndRow: (rowNum) => {
+      addButtonInRow: (rowNum, button) => {
+        const oldCurrentRow = pagesFuncs.keyboard.findCurrentRow(rowNum)
+        const oldRowsWithoutCurrentRow =
+          pagesFuncs.keyboard.getOldRowsWithoutCurrentRow(rowNum)
+        const newCurrentRow = {
+          ...oldCurrentRow,
+          buttons: [...oldCurrentRow.buttons, button],
+        }
+        const newRows = [...oldRowsWithoutCurrentRow, newCurrentRow]
+        pagesFuncs.changeCurrentPageField('rows', newRows)
+      },
+      addEmptyButtonAndRow: (rowNum) => {
         const oldRowsWithoutCurrentRow =
           pagesFuncs.keyboard.getOldRowsWithoutCurrentRow(rowNum)
         const newCurrentRow = pagesFuncs.keyboard.getNewButton(rowNum)
@@ -309,6 +342,81 @@ function App() {
           newEmptyRow,
         ]
         pagesFuncs.changeCurrentPageField('rows', newRows)
+      },
+      button: {
+        getCurrentButtonField: (buttonRow, buttonNum, buttonId, field) => {
+          return pagesFuncs.keyboard.findCurrentButton(
+            buttonRow,
+            buttonNum,
+            buttonId,
+          )?.[field]
+        },
+        onChangeButtonField: (buttonRow, buttonNum, buttonId, field, value) => {
+          const oldCurrentButton = pagesFuncs.keyboard.findCurrentButton(
+            buttonRow,
+            buttonNum,
+            buttonId,
+          )
+          const currentRowWithoutCurrentButton =
+            pagesFuncs.keyboard.getCurrentRowWithoutCurrentButton(
+              buttonRow,
+              buttonNum,
+              buttonId,
+            )
+          const oldRowsWithoutCurrentRow =
+            pagesFuncs.keyboard.getOldRowsWithoutCurrentRow(buttonRow)
+          const newCurrentButton = {
+            ...oldCurrentButton,
+            [field]: value,
+          }
+          const newCurrentRow = {
+            ...currentRowWithoutCurrentButton,
+            buttons: [
+              ...currentRowWithoutCurrentButton.buttons,
+              newCurrentButton,
+            ],
+          }
+          const newRows = [...oldRowsWithoutCurrentRow, newCurrentRow]
+          pagesFuncs.changeCurrentPageField('rows', newRows)
+        },
+        label: {
+          get: {
+            currentButtonLabel: (buttonRow, buttonNum, buttonId) => {
+              return pagesFuncs.keyboard.button.getCurrentButtonField(
+                buttonRow,
+                buttonNum,
+                buttonId,
+                'label',
+              )
+            },
+            currentButtonIsCustomLabel: (buttonRow, buttonNum, buttonId) => {
+              return pagesFuncs.keyboard.button.getCurrentButtonField(
+                buttonRow,
+                buttonNum,
+                buttonId,
+                'isCustomLabel',
+              )
+            },
+          },
+          update: {
+            toggleIsCustomLabel: (buttonRow, buttonNum, buttonId) => {
+              const oldButtonIsCustomLabel =
+                pagesFuncs.keyboard.button.label.get.currentButtonIsCustomLabel(
+                  buttonRow,
+                  buttonNum,
+                  buttonId,
+                )
+              const newButtonIsCustomLabel = !oldButtonIsCustomLabel
+              pagesFuncs.keyboard.button.onChangeButtonField(
+                buttonRow,
+                buttonNum,
+                buttonId,
+                'isCustomLabel',
+                newButtonIsCustomLabel,
+              )
+            },
+          },
+        },
       },
     },
   }
@@ -343,12 +451,10 @@ function App() {
           pagesFuncs={pagesFuncs}
         />
         {pagesFuncs.pages.length > 0 && (
-          <>
-            <PageSelector
-              dropDownArrow={generalFuncs.dropDownArrow}
-              pagesFuncs={pagesFuncs}
-            />
-          </>
+          <PageSelector
+            dropDownArrow={generalFuncs.dropDownArrow}
+            pagesFuncs={pagesFuncs}
+          />
         )}
         {pagesFuncs.pages.length > 0 && !previewMode && (
           <RightSidebar
