@@ -1,14 +1,8 @@
 import React from 'react'
-import DropDownItem from './DropDownItem'
+import DropDownMenu from '../dropdownmenu/DropDownMenu'
 import AllowedItem from '../AllowedItem'
 
 export default function AllowedPhotoExtensionsContainer(props) {
-  const [itemOpened, setItemOpened] = React.useState(false)
-
-  function toggleOpened() {
-    setItemOpened((prevState) => !prevState)
-  }
-
   const handleEnterPress = (key) => {
     if (key.code === 'Enter') {
       props.photoExtensionsFuncs.addPhotoExtension(
@@ -27,38 +21,36 @@ export default function AllowedPhotoExtensionsContainer(props) {
     />
   ))
 
-  return (
+  const allowedPhotoExtensionsEl = (
     <div className='allowed-photo-extensions-container'>
-      <DropDownItem
-        dropDownArrow={props.dropDownArrow}
-        toggleItem={toggleOpened}
-        isItemCurrentOpened={itemOpened}
-        dropDownItemName='Allowed Photo extensions'
-      />
-
-      {itemOpened && extensions}
-      {itemOpened && (
-        <div className='add-extension'>
-          <input
-            type='text'
-            placeholder='Add new'
-            maxLength={5}
-            onChange={props.photoExtensionsFuncs.onChangeNewPhotoExtension}
-            onKeyDown={handleEnterPress}
-            value={props.photoExtensionsFuncs.newPhotoExtensionValue}
-          />
-          <span
-            className='material-symbols-outlined clickable'
-            onClick={() =>
-              props.photoExtensionsFuncs.addPhotoExtension(
-                props.photoExtensionsFuncs.newPhotoExtensionValue,
-              )
-            }
-          >
-            done
-          </span>
-        </div>
-      )}
+      {extensions}
+      <div className='add-extension'>
+        <input
+          type='text'
+          placeholder='Add new'
+          maxLength={5}
+          onChange={props.photoExtensionsFuncs.onChangeNewPhotoExtension}
+          onKeyDown={handleEnterPress}
+          value={props.photoExtensionsFuncs.newPhotoExtensionValue}
+        />
+        <span
+          className='material-symbols-outlined clickable'
+          onClick={() =>
+            props.photoExtensionsFuncs.addPhotoExtension(
+              props.photoExtensionsFuncs.newPhotoExtensionValue,
+            )
+          }
+        >
+          done
+        </span>
+      </div>
     </div>
+  )
+
+  return (
+    <DropDownMenu
+      menuTitle='Allowed Photo extensions'
+      content={allowedPhotoExtensionsEl}
+    />
   )
 }

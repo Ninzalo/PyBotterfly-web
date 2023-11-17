@@ -1,0 +1,73 @@
+.dropdown-menu {
+  margin: 0;
+  margin-bottom: 5px;
+  padding: 0;
+  padding-right: 10px;
+
+  width: calc(100% - 10px);
+  height: auto;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdown-menu > .dropdown-menu-preview {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+
+  margin: 0;
+  padding: 0;
+
+  width: 100%;
+  height: auto;
+}
+
+.dropdown-menu > .dropdown-menu-preview > .dropdown-menu-preview-expand {
+  /* background-color: black; */
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+
+  margin: 0;
+  padding: 0;
+  width: auto;
+}
+
+.dropdown-menu
+  > .dropdown-menu-preview
+  > .dropdown-menu-preview-expand
+  > .material-symbols-outlined {
+  margin: 0;
+  margin-right: 5px;
+  padding: 0;
+}
+
+.dropdown-menu
+  > .dropdown-menu-preview
+  > .dropdown-menu-preview-expand
+  > .dropdown-menu-title {
+  /* background-color: black; */
+  margin: 0;
+  margin-right: 10px;
+  padding: 0;
+  font-size: 1.25rem;
+  text-align: left;
+}
+
+.dropdown-menu > .dropdown-menu-preview > .dropdown-menu-title-element {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  width: 100%;
+}
+
+.dropdown-menu > .dropdown-menu-content {
+  margin: 5px 0 5px 25px;
+
+  width: calc(100% - 25px);
+  height: 100%;
+}

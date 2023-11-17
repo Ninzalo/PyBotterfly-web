@@ -13,39 +13,27 @@ export default function LeftSidebar(props) {
   return (
     <div className='sidebar left-sidebar'>
       <h1>General Settings</h1>
-      <ProjectNameContainer
-        dropDownArrow={props.dropDownArrow}
-        projectNameFuncs={props.projectNameFuncs}
-      />
+      <ProjectNameContainer projectNameFuncs={props.projectNameFuncs} />
       <MaxButtonsAmountContainer
-        dropDownArrow={props.dropDownArrow}
         maxButtonsAmountFuncs={props.maxButtonsAmountFuncs}
       />
       <MaxButtonsInRowContainer
-        dropDownArrow={props.dropDownArrow}
         maxButtonsInRowFuncs={props.maxButtonsInRowFuncs}
       />
-      <MaxRowsContainer
-        dropDownArrow={props.dropDownArrow}
-        maxRowsFuncs={props.maxRowsFuncs}
-      />
+      <MaxRowsContainer maxRowsFuncs={props.maxRowsFuncs} />
       <AllowedPhotoExtensionsContainer
-        dropDownArrow={props.dropDownArrow}
         photoExtensionsFuncs={props.photoExtensionsFuncs}
       />
       <AllowedFileExtensionsContainer
-        dropDownArrow={props.dropDownArrow}
         fileExtensionsFuncs={props.fileExtensionsFuncs}
       />
-      <DebugStateContainer
-        dropDownArrow={props.dropDownArrow}
-        debugStateFuncs={props.debugStateFuncs}
-      />
-      <PreviewModeContainer
-        dropDownArrow={props.dropDownArrow}
-        previewModeFuncs={props.previewModeFuncs}
-      />
+      <DebugStateContainer debugStateFuncs={props.debugStateFuncs} />
+      <PreviewModeContainer previewModeFuncs={props.previewModeFuncs} />
+
       <div className='empty-bottom-space'></div>
     </div>
   )
 }
+
+//
+//

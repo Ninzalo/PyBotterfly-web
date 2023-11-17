@@ -1,14 +1,8 @@
 import React from 'react'
-import DropDownItem from './DropDownItem'
+import DropDownMenu from '../dropdownmenu/DropDownMenu'
 import AllowedItem from '../AllowedItem'
 
 export default function AllowedFileExtensionsContainer(props) {
-  const [itemOpened, setItemOpened] = React.useState(false)
-
-  function toggleOpened() {
-    setItemOpened((prevState) => !prevState)
-  }
-
   const handleEnterPress = (key) => {
     if (key.code === 'Enter') {
       props.fileExtensionsFuncs.addFileExtension(
@@ -27,38 +21,36 @@ export default function AllowedFileExtensionsContainer(props) {
     />
   ))
 
-  return (
+  const allowedFileExtensionsEl = (
     <div className='allowed-file-extensions-container'>
-      <DropDownItem
-        dropDownArrow={props.dropDownArrow}
-        toggleItem={toggleOpened}
-        isItemCurrentOpened={itemOpened}
-        dropDownItemName='Allowed File extensions'
-      />
-
-      {itemOpened && extensions}
-      {itemOpened && (
-        <div className='add-extension'>
-          <input
-            type='text'
-            placeholder='Add new'
-            maxLength={5}
-            onChange={props.fileExtensionsFuncs.onChangeNewFileExtension}
-            onKeyDown={handleEnterPress}
-            value={props.fileExtensionsFuncs.newFileExtensionValue}
-          />
-          <span
-            className='material-symbols-outlined clickable'
-            onClick={() =>
-              props.fileExtensionsFuncs.addFileExtension(
-                props.fileExtensionsFuncs.newFileExtensionValue,
-              )
-            }
-          >
-            done
-          </span>
-        </div>
-      )}
+      {extensions}
+      <div className='add-extension'>
+        <input
+          type='text'
+          placeholder='Add new'
+          maxLength={5}
+          onChange={props.fileExtensionsFuncs.onChangeNewFileExtension}
+          onKeyDown={handleEnterPress}
+          value={props.fileExtensionsFuncs.newFileExtensionValue}
+        />
+        <span
+          className='material-symbols-outlined clickable'
+          onClick={() =>
+            props.fileExtensionsFuncs.addFileExtension(
+              props.fileExtensionsFuncs.newFileExtensionValue,
+            )
+          }
+        >
+          done
+        </span>
+      </div>
     </div>
+  )
+
+  return (
+    <DropDownMenu
+      menuTitle='Allowed File extensions'
+      content={allowedFileExtensionsEl}
+    />
   )
 }

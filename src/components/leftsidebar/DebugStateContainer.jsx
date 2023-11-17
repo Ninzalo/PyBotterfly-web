@@ -1,28 +1,16 @@
 import React from 'react'
-import DropDownItem from './DropDownItem'
+import DropDownMenu from '../dropdownmenu/DropDownMenu'
 import Switch from '../switch/Switch'
 
 export default function DebugStateContainer(props) {
-  const [itemOpened, setItemOpened] = React.useState(false)
-
-  function toggleOpened() {
-    setItemOpened((prevState) => !prevState)
-  }
-
-  return (
+  const debugStateEl = (
     <div className='debug-state-container'>
-      <DropDownItem
-        dropDownArrow={props.dropDownArrow}
-        toggleItem={toggleOpened}
-        isItemCurrentOpened={itemOpened}
-        dropDownItemName='Debug State'
+      <Switch
+        toggleSwitch={props.debugStateFuncs.toggleDebugState}
+        switchState={props.debugStateFuncs.debugState}
       />
-      {itemOpened && (
-        <Switch
-          toggleSwitch={props.debugStateFuncs.toggleDebugState}
-          switchState={props.debugStateFuncs.debugState}
-        />
-      )}
     </div>
   )
+
+  return <DropDownMenu menuTitle='Debug State' content={debugStateEl} />
 }

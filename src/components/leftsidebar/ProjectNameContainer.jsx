@@ -1,30 +1,20 @@
 import React from 'react'
-import DropDownItem from './DropDownItem'
+import DropDownMenu from '../dropdownmenu/DropDownMenu'
 
 export default function ProjectNameContainer(props) {
-  const [isProjectNameOpened, setIsProjectNameOpened] = React.useState(false)
-
-  function toggleProjectName() {
-    setIsProjectNameOpened((prevState) => !prevState)
-  }
+  const inputProjectNameEl = (
+    <div className='project-name-container'>
+      <input
+        type='text'
+        placeholder='Project Name'
+        maxLength={21}
+        onChange={props.projectNameFuncs.onChangeProjectName}
+        value={props.projectNameFuncs.projectName}
+      />
+    </div>
+  )
 
   return (
-    <div className='project-name-container'>
-      <DropDownItem
-        dropDownArrow={props.dropDownArrow}
-        toggleItem={toggleProjectName}
-        isItemCurrentOpened={isProjectNameOpened}
-        dropDownItemName='Your Project name'
-      />
-      {isProjectNameOpened && (
-        <input
-          type='text'
-          placeholder='Project Name'
-          maxLength={21}
-          onChange={props.projectNameFuncs.onChangeProjectName}
-          value={props.projectNameFuncs.projectName}
-        />
-      )}
-    </div>
+    <DropDownMenu menuTitle='Your Project name' content={inputProjectNameEl} />
   )
 }
