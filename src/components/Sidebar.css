@@ -44,42 +44,6 @@
   padding: 3px 6px;
 }
 
-.circle {
-  background-color: #666666;
-  color: white;
-  border: none;
-  border-radius: 50%;
-
-  width: 2rem;
-  height: 2rem;
-
-  margin: 0 10px;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.unavailable {
-  background-color: #ff4d4d;
-}
-
-.counter {
-  display: flex;
-  flex-direction: row;
-  justify-content: start;
-  align-items: center;
-
-  margin: 0 auto;
-  margin-left: 20px;
-
-  height: 2rem;
-}
-
-.counter > h3 {
-  min-width: 20px;
-}
-
 .allowed-item {
   display: flex;
   flex-direction: row;

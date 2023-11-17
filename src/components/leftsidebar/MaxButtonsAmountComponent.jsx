@@ -1,34 +1,18 @@
 import React from 'react'
 import DropDownMenu from '../dropdownmenu/DropDownMenu'
+import Counter from '../counter/Counter'
 import { defaultValues } from '../../DefaultValues'
 
 export default function MaxButtonsAmountContainer(props) {
   const maxButtonsAmountEl = (
     <div className='max-buttons-amount'>
-      <div className='counter'>
-        <div
-          className={`circle clickable ${
-            (props.maxButtonsAmountFuncs.maxButtonsAmount === 1 ||
-              !props.maxButtonsAmountFuncs.allowEdit) &&
-            'unavailable'
-          }`}
-          onClick={props.maxButtonsAmountFuncs.decrementMaxButtonsAmount}
-        >
-          -
-        </div>
-        <h3>{props.maxButtonsAmountFuncs.maxButtonsAmount}</h3>
-        <div
-          className={`circle clickable ${
-            (props.maxButtonsAmountFuncs.maxButtonsAmount ===
-              defaultValues.maxButtonsAmount ||
-              !props.maxButtonsAmountFuncs.allowEdit) &&
-            'unavailable'
-          }`}
-          onClick={props.maxButtonsAmountFuncs.incrementMaxButtonsAmount}
-        >
-          +
-        </div>
-      </div>
+      <Counter
+        currentState={props.maxButtonsAmountFuncs.maxButtonsAmount}
+        maxValue={defaultValues.maxButtonsAmount}
+        allowEditState={props.maxButtonsAmountFuncs.allowEdit}
+        onDecrement={props.maxButtonsAmountFuncs.decrementMaxButtonsAmount}
+        onIncrement={props.maxButtonsAmountFuncs.incrementMaxButtonsAmount}
+      />
     </div>
   )
 
