@@ -1,5 +1,5 @@
 .sidebar {
-  background-color: #404040;
+  background-color: var(--panel-grey-color);
   color: white;
   text-align: center;
 
@@ -33,7 +33,7 @@
 
 .project-name-container > input,
 .page-id-container > input {
-  background-color: #404040;
+  background-color: var(--panel-grey-color);
   border: 1px solid white;
   border-radius: 6px;
 
@@ -72,7 +72,7 @@
 }
 
 .add-extension > input {
-  background-color: #404040;
+  background-color: var(--panel-grey-color);
   border: 1px solid white;
   border-radius: 6px;
 
@@ -130,7 +130,7 @@
   border: 1px solid white;
   border-radius: 6px;
 
-  background-color: #404040;
+  background-color: var(--panel-grey-color);
   font-size: 1.2rem;
 
   width: 80%;
@@ -145,7 +145,7 @@
   border: 1px solid white;
   border-radius: 6px;
 
-  background-color: rgb(254, 110, 114, 0.5);
+  background-color: var(--transparent-red-color);
   color: white;
 
   width: 80%;

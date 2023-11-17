@@ -19,7 +19,7 @@
   border: none;
   border-radius: 50%;
 
-  background-color: #666666;
+  background-color: var(--light-grey-color);
   color: white;
 
   display: flex;
@@ -34,5 +34,5 @@
 }
 
 .counter > .unavailable {
-  background-color: #ff4d4d;
+  background-color: var(--red-color);
 }

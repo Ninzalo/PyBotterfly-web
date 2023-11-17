@@ -7,7 +7,7 @@
 }
 
 .switch {
-  background-color: #404040;
+  background-color: var(--panel-grey-color);
   width: 60px;
   height: 30px;
   border: 2px solid white;
@@ -22,7 +22,7 @@
   width: 26px;
   height: 26px;
   border-radius: 26px;
-  background-color: white;
+  background-color: var(--white-color);
   margin: 2px;
   transition: 0.2s;
   transform: translateX(-30px);
@@ -33,7 +33,7 @@
 }
 
 .switchbox > input:checked + .switch {
-  background-color: #4bb34b;
+  background-color: var(--green-color);
 }
 
 .switchbox > input:checked + .switch::before {

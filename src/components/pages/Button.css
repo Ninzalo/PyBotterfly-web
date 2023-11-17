@@ -22,18 +22,18 @@
 }
 
 .primary {
-  background-color: #4d79ff;
+  background-color: var(--blue-color);
 }
 
 .secondary {
-  background-color: white;
+  background-color: var(--white-color);
   color: black;
 }
 
 .negative {
-  background-color: #ff4d4d;
+  background-color: var(--red-color);
 }
 
 .positive {
-  background-color: #4bb34b;
+  background-color: var(--green-color);
 }

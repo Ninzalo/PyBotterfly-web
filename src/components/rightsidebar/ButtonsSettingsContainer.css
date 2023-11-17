@@ -45,7 +45,7 @@
 }
 
 .button-label-setting > .preview > input {
-  background-color: #404040;
+  background-color: var(--panel-grey-color);
   border: 1px solid white;
   border-radius: 6px;
   text-align: start;
