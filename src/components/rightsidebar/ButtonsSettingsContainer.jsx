@@ -1,5 +1,5 @@
 import React from 'react'
-import DropDownItem from '../leftsidebar/DropDownItem'
+import DropDownMenu from '../dropdownmenu/DropDownMenu'
 import {
   emptyButtonData,
   buttonSettingObj,
@@ -10,12 +10,6 @@ import './ButtonsSettingsContainer.css'
 import Switch from '../switch/Switch'
 
 export default function ButtonsSettingsContainer(props) {
-  const [itemOpened, setItemOpened] = React.useState(false)
-
-  function toggleOpened() {
-    setItemOpened((prevState) => !prevState)
-  }
-
   let buttons = []
   for (let i = 0; i < props.pagesFuncs.currentPage.rows.length; i++) {
     const currentRow = props.pagesFuncs.currentPage.rows[i]
@@ -52,26 +46,18 @@ export default function ButtonsSettingsContainer(props) {
 
   if (buttons.length === 0) return <></>
 
-  return (
+  const buttonsSettingsEl = (
     <div className='buttons-settings-container'>
-      <DropDownItem
-        dropDownArrow={props.dropDownArrow}
-        toggleItem={toggleOpened}
-        isItemCurrentOpened={itemOpened}
-        dropDownItemName='Buttons settings'
-      />
-      {itemOpened && <>{buttons}</>}
+      <>{buttons}</>
     </div>
+  )
+
+  return (
+    <DropDownMenu menuTitle='Button settings' content={buttonsSettingsEl} />
   )
 }
 
 function ButtonSettings(props) {
-  const [buttonOpened, setButtonOpened] = React.useState(false)
-
-  function toggleButton() {
-    setButtonOpened((prevState) => !prevState)
-  }
-
   // <ButtonActionSetting
   //   buttonRow={props.buttonRow}
   //   buttonNum={props.buttonNum}
@@ -80,43 +66,37 @@ function ButtonSettings(props) {
   //   dropDownArrow={props.dropDownArrow}
   // />
 
-  return (
+  const buttonSettingsEl = (
     <div className='button-settings-container'>
-      <DropDownItem
-        dropDownArrow={props.dropDownArrow}
-        toggleItem={toggleButton}
-        isItemCurrentOpened={buttonOpened}
-        dropDownItemName={`Button: ${props.buttonName}`}
-      />
-      {buttonOpened && (
-        <div className='button-settings'>
-          <ButtonLabelSetting
-            buttonRow={props.buttonRow}
-            buttonNum={props.buttonNum}
-            button={props.button}
-            pagesFuncs={props.pagesFuncs}
-            dropDownArrow={props.dropDownArrow}
-          />
-          <ButtonColorSetting
-            buttonRow={props.buttonRow}
-            buttonNum={props.buttonNum}
-            button={props.button}
-            pagesFuncs={props.pagesFuncs}
-            dropDownArrow={props.dropDownArrow}
-          />
-        </div>
-      )}
+      <div className='button-settings'>
+        <ButtonLabelSetting
+          buttonRow={props.buttonRow}
+          buttonNum={props.buttonNum}
+          button={props.button}
+          pagesFuncs={props.pagesFuncs}
+          dropDownArrow={props.dropDownArrow}
+        />
+        <ButtonColorSetting
+          buttonRow={props.buttonRow}
+          buttonNum={props.buttonNum}
+          button={props.button}
+          pagesFuncs={props.pagesFuncs}
+          dropDownArrow={props.dropDownArrow}
+        />
+      </div>
     </div>
+  )
+
+  return (
+    <DropDownMenu
+      menuTitle='Button:'
+      nameElement={props.buttonName}
+      content={buttonSettingsEl}
+    />
   )
 }
 
 function ButtonLabelSetting(props) {
-  const [itemOpened, setItemOpened] = React.useState(false)
-
-  function toggleOpened() {
-    setItemOpened((prevState) => !prevState)
-  }
-
   const buttonLabel =
     props.pagesFuncs.keyboard.button.label.get.currentButtonLabel(
       props.buttonRow,
@@ -124,19 +104,11 @@ function ButtonLabelSetting(props) {
       props.button.id,
     )
 
-  const dropDownEl = (
-    <>
-      {props.dropDownArrow(itemOpened)}
-      <h3>Label: </h3>
-    </>
-  )
-
   const buttonLabelInputEl = (
     <input
       type='text'
       placeholder='Button'
       maxLength={defaultButtonSettings.maxLabelLength}
-      name='buttonLabel'
       onChange={(event) =>
         props.pagesFuncs.keyboard.button.onChangeButtonField(
           props.buttonRow,
@@ -166,34 +138,25 @@ function ButtonLabelSetting(props) {
     )
 
   const isCustomLabelEl = (
-    <>
+    <div className='is-custom-label-container'>
       <Switch
         toggleSwitch={toggleIsCustomLabel}
         switchState={currentButtonIsCustomLabel}
       />
       <h3>Custom Label</h3>
-    </>
+    </div>
   )
 
   return (
-    <div className='button-label-setting'>
-      <div className='preview'>
-        <div className='dropdown clickable' onClick={toggleOpened}>
-          {dropDownEl}
-        </div>
-        <>{buttonLabelInputEl}</>
-      </div>
-      {itemOpened && <div className='details'>{isCustomLabelEl}</div>}
-    </div>
+    <DropDownMenu
+      menuTitle='Label:'
+      nameElement={buttonLabelInputEl}
+      content={isCustomLabelEl}
+    />
   )
 }
 
 function ButtonColorSetting(props) {
-  const [itemOpened, setItemOpened] = React.useState(false)
-
-  function toggleOpened() {
-    setItemOpened((prevState) => !prevState)
-  }
   const buttonColor = props.pagesFuncs.keyboard.findCurrentButton(
     props.buttonRow,
     props.buttonNum,
@@ -210,16 +173,16 @@ function ButtonColorSetting(props) {
     />
   )
 
+  const buttonColorEl = (
+    <div className='button-color-setting'>{buttonColorPicker}</div>
+  )
+
   return (
-    <div className='button-color-setting'>
-      <DropDownItem
-        dropDownArrow={props.dropDownArrow}
-        toggleItem={toggleOpened}
-        isItemCurrentOpened={itemOpened}
-        dropDownItemName={`Color: ${buttonColor}`}
-      />
-      {itemOpened && <>{buttonColorPicker}</>}
-    </div>
+    <DropDownMenu
+      menuTitle='Color:'
+      nameElement={buttonColor}
+      content={buttonColorEl}
+    />
   )
 }
 
@@ -258,22 +221,13 @@ function ButtonColorItem(props) {
 }
 
 function ButtonActionSetting(props) {
-  const [itemOpened, setItemOpened] = React.useState(false)
-
-  function toggleOpened() {
-    setItemOpened((prevState) => !prevState)
-  }
-
-  return (
+  const actionEl = (
     <div className='button-action-setting'>
-      <DropDownItem
-        dropDownArrow={props.dropDownArrow}
-        toggleItem={toggleOpened}
-        isItemCurrentOpened={itemOpened}
-        dropDownItemName='Action'
-      />
+      <></>
     </div>
   )
+
+  return <DropDownMenu menuTitle='Action' content={actionEl} />
 }
 
 function DeleteItemSetting(props) {

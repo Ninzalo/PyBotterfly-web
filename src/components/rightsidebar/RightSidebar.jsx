@@ -11,18 +11,9 @@ export default function RightSidebar(props) {
       <h2 className='page-id-display'>
         Page ID: {props.pagesFuncs.currentPage?.pageId}
       </h2>
-      <PageIdContainer
-        dropDownArrow={props.dropDownArrow}
-        pagesFuncs={props.pagesFuncs}
-      />
-      <MessageTextContainer
-        dropDownArrow={props.dropDownArrow}
-        pagesFuncs={props.pagesFuncs}
-      />
-      <ButtonsSettingsContainer
-        dropDownArrow={props.dropDownArrow}
-        pagesFuncs={props.pagesFuncs}
-      />
+      <PageIdContainer pagesFuncs={props.pagesFuncs} />
+      <MessageTextContainer pagesFuncs={props.pagesFuncs} />
+      <ButtonsSettingsContainer pagesFuncs={props.pagesFuncs} />
     </div>
   )
 }

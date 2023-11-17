@@ -436,7 +436,6 @@ function App() {
       <Navbar />
       <div className='main'>
         <LeftSidebar
-          dropDownArrow={generalFuncs.dropDownArrow}
           projectNameFuncs={projectNameFuncs}
           maxButtonsAmountFuncs={maxButtonsAmountFuncs}
           maxButtonsInRowFuncs={maxButtonsInRowFuncs}
@@ -458,7 +457,6 @@ function App() {
         )}
         {pagesFuncs.pages.length > 0 && !previewMode && (
           <RightSidebar
-            dropDownArrow={generalFuncs.dropDownArrow}
             pagesFuncs={pagesFuncs}
           />
         )}

@@ -1,12 +1,19 @@
 import React from 'react'
-import DropDownItem from '../leftsidebar/DropDownItem'
+import DropDownMenu from '../dropdownmenu/DropDownMenu'
 
 export default function PageIdContainer(props) {
-  const [itemOpened, setItemOpened] = React.useState(false)
-
-  function toggleOpened() {
-    setItemOpened((prevState) => !prevState)
-  }
+  const pageIdEl = (
+    <div className='page-id-container'>
+      <input
+        type='text'
+        placeholder='Page ID'
+        maxLength={25}
+        name='pageId'
+        onChange={props.pagesFuncs.onChangeCurrentPageId}
+        value={props.pagesFuncs.currentPage?.pageId}
+      />
+    </div>
+  )
 
   return (
     <div className='page-id-container'>
@@ -17,24 +24,7 @@ export default function PageIdContainer(props) {
         !props.pagesFuncs.isPageIdUnique(
           props.pagesFuncs.currentPage?.pageId,
         ) && <p className='warning-text'>Page ID must be unique</p>}
-      {
-        <DropDownItem
-          dropDownArrow={props.dropDownArrow}
-          toggleItem={toggleOpened}
-          isItemCurrentOpened={itemOpened}
-          dropDownItemName='Page ID'
-        />
-      }
-      {itemOpened && (
-        <input
-          type='text'
-          placeholder='Page ID'
-          maxLength={25}
-          name='pageId'
-          onChange={props.pagesFuncs.onChangeCurrentPageId}
-          value={props.pagesFuncs.currentPage?.pageId}
-        />
-      )}
+      <DropDownMenu menuTitle='Page ID' content={pageIdEl} />
     </div>
   )
 }
