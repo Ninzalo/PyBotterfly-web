@@ -1,5 +1,6 @@
 import React from 'react'
 import DropDownMenu from '../dropdownmenu/DropDownMenu'
+import './MessageTextContainer.css'
 
 export default function MessageTextContainer(props) {
   function handleKeyDown(e) {

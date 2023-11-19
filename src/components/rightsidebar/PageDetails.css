@@ -1,0 +1,32 @@
+.page-id-display-text {
+  border: 1px solid white;
+  border-radius: 6px;
+
+  white-space: nowrap;
+  overflow: visible;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  min-width: 80%;
+  width: auto;
+  max-width: 100%;
+
+  margin: 0 auto;
+  margin-bottom: 0.3rem;
+  padding: 0.1rem 0.2rem;
+}
+
+.warning-text {
+  border: 1px solid white;
+  border-radius: 6px;
+
+  background-color: var(--transparent-red-color);
+  color: white;
+
+  min-width: 80%;
+  max-width: 100%;
+
+  margin: 0 auto;
+  margin-bottom: 0.3rem;
+  padding: 0.1rem 0.2rem;
+}

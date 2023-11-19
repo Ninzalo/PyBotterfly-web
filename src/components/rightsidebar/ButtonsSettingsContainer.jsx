@@ -37,7 +37,6 @@ export default function ButtonsSettingsContainer(props) {
                 : currentButtonObj.button.label
             }
             pagesFuncs={props.pagesFuncs}
-            dropDownArrow={props.dropDownArrow}
           />,
         )
       }
@@ -58,12 +57,15 @@ export default function ButtonsSettingsContainer(props) {
 }
 
 function ButtonSettings(props) {
+  const currentButtonLabel = (
+    <div className='current-button-label'>{props.buttonName}</div>
+  )
+
   // <ButtonActionSetting
   //   buttonRow={props.buttonRow}
   //   buttonNum={props.buttonNum}
   //   button={props.button}
   //   pagesFuncs={props.pagesFuncs}
-  //   dropDownArrow={props.dropDownArrow}
   // />
 
   const buttonSettingsEl = (
@@ -74,14 +76,12 @@ function ButtonSettings(props) {
           buttonNum={props.buttonNum}
           button={props.button}
           pagesFuncs={props.pagesFuncs}
-          dropDownArrow={props.dropDownArrow}
         />
         <ButtonColorSetting
           buttonRow={props.buttonRow}
           buttonNum={props.buttonNum}
           button={props.button}
           pagesFuncs={props.pagesFuncs}
-          dropDownArrow={props.dropDownArrow}
         />
       </div>
     </div>
@@ -90,7 +90,7 @@ function ButtonSettings(props) {
   return (
     <DropDownMenu
       menuTitle='Button:'
-      nameElement={props.buttonName}
+      nameElement={currentButtonLabel}
       content={buttonSettingsEl}
     />
   )
@@ -105,21 +105,23 @@ function ButtonLabelSetting(props) {
     )
 
   const buttonLabelInputEl = (
-    <input
-      type='text'
-      placeholder='Button'
-      maxLength={defaultButtonSettings.maxLabelLength}
-      onChange={(event) =>
-        props.pagesFuncs.keyboard.button.onChangeButtonField(
-          props.buttonRow,
-          props.buttonNum,
-          props.button.id,
-          'label',
-          event.target.value,
-        )
-      }
-      value={buttonLabel}
-    />
+    <div className='button-label-input'>
+      <input
+        type='text'
+        placeholder='Button'
+        maxLength={defaultButtonSettings.maxLabelLength}
+        onChange={(event) =>
+          props.pagesFuncs.keyboard.button.onChangeButtonField(
+            props.buttonRow,
+            props.buttonNum,
+            props.button.id,
+            'label',
+            event.target.value,
+          )
+        }
+        value={buttonLabel}
+      />
+    </div>
   )
 
   const toggleIsCustomLabel = () => {
@@ -157,18 +159,22 @@ function ButtonLabelSetting(props) {
 }
 
 function ButtonColorSetting(props) {
-  const buttonColor = props.pagesFuncs.keyboard.findCurrentButton(
+  const currentButtonColor = props.pagesFuncs.keyboard.findCurrentButton(
     props.buttonRow,
     props.buttonNum,
     props.button.id,
   ).color
+
+  const currentButtonColorEl = (
+    <div className='current-button-color'>{currentButtonColor}</div>
+  )
 
   const buttonColorPicker = (
     <ButtonColorPicker
       buttonRow={props.buttonRow}
       buttonNum={props.buttonNum}
       button={props.button}
-      buttonColor={buttonColor}
+      buttonColor={currentButtonColor}
       pagesFuncs={props.pagesFuncs}
     />
   )
@@ -180,7 +186,7 @@ function ButtonColorSetting(props) {
   return (
     <DropDownMenu
       menuTitle='Color:'
-      nameElement={buttonColor}
+      nameElement={currentButtonColorEl}
       content={buttonColorEl}
     />
   )
@@ -211,7 +217,7 @@ function ButtonColorPicker(props) {
 
 function ButtonColorItem(props) {
   return (
-    <div className='allowed-item clickable' onClick={props.onClick}>
+    <div className='color-item clickable' onClick={props.onClick}>
       <span className='material-symbols-outlined'>
         {props.isChecked ? 'radio_button_checked' : 'radio_button_unchecked'}
       </span>

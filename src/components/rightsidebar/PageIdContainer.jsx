@@ -15,16 +15,5 @@ export default function PageIdContainer(props) {
     </div>
   )
 
-  return (
-    <div className='page-id-container'>
-      {props.pagesFuncs.currentPage.pageId === '' && (
-        <p className='warning-text'>Page ID must be filled</p>
-      )}
-      {props.pagesFuncs.currentPage.pageId !== '' &&
-        !props.pagesFuncs.isPageIdUnique(
-          props.pagesFuncs.currentPage?.pageId,
-        ) && <p className='warning-text'>Page ID must be unique</p>}
-      <DropDownMenu menuTitle='Page ID' content={pageIdEl} />
-    </div>
-  )
+  return <DropDownMenu menuTitle='Page ID' content={pageIdEl} />
 }
