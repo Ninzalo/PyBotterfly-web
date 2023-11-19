@@ -1,6 +1,7 @@
 import React from 'react'
 import DropDownMenu from '../dropdownmenu/DropDownMenu'
-import AllowedItem from '../AllowedItem'
+import AllowedItem from '../allowedItem/AllowedItem'
+import './AllowedExtensions.css'
 
 export default function AllowedFileExtensionsContainer(props) {
   const handleEnterPress = (key) => {

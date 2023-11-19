@@ -1,0 +1,18 @@
+.allowed-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  color: white;
+
+  margin: 0 auto;
+  margin-right: 50%;
+
+  height: 2rem;
+}
+
+.allowed-item > h3 {
+  margin-left: 10px;
+  margin-right: auto;
+}

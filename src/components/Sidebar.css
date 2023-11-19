@@ -38,50 +38,6 @@
   height: 100%;
 }
 
-.allowed-item {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-
-  color: white;
-
-  margin: 0 auto;
-  margin-left: 20px;
-  margin-right: 57%;
-
-  height: 2rem;
-}
-
-.allowed-item > h3 {
-  margin-left: 10px;
-  margin-right: auto;
-}
-
-.add-extension {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-top: 10px;
-}
-
-.add-extension > input {
-  background-color: var(--panel-grey-color);
-  border: 1px solid white;
-  border-radius: 6px;
-
-  width: 40%;
-  height: 100%;
-
-  margin-left: 25px;
-  margin-right: 0;
-  padding: 3px 6px;
-}
-
-.add-extension > span {
-  margin-left: 10px;
-}
-
 .empty-bottom-space {
   height: 10px;
   width: 100%;

@@ -1,5 +1,5 @@
 import React from 'react'
-import './Sidebar.css'
+import './AllowedItem.css'
 
 export default function AllowedItem(props) {
   return (
