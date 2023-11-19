@@ -9,7 +9,12 @@ export default function DropDownMenu(props) {
   }
 
   return (
-    <div className='dropdown-menu'>
+    <div
+      className={`dropdown-menu ${
+        props.customClassName ? props.customClassName : ''
+      }`}
+      id={props.customId}
+    >
       <div className='dropdown-menu-preview'>
         <div
           className='dropdown-menu-preview-expand clickable'

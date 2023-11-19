@@ -1,14 +1,8 @@
 import React from 'react'
-import DropDownItem from '../leftsidebar/DropDownItem'
+import DropDownMenu from '../dropdownmenu/DropDownMenu.jsx'
 import './PageSelector.css'
 
 export default function PageSelector(props) {
-  const [itemOpened, setItemOpened] = React.useState(false)
-
-  function toggleOpened() {
-    setItemOpened((prevState) => !prevState)
-  }
-
   const pagesIds = props.pagesFuncs.pages
     .sort((a, b) => a.pageId.localeCompare(b.pageId))
     .map((page) => (
@@ -27,29 +21,25 @@ export default function PageSelector(props) {
       </div>
     ))
 
+  const pagesMenuEl = (
+    <>
+      {pagesIds}
+      {!props.pagesFuncs.previewMode && (
+        <div
+          className='page-selector-add-item clickable'
+          onClick={props.pagesFuncs.addEmptyPage}
+        >
+          <div className='line vertical-line top-line'></div>
+          <div className='line horizontal-line'></div>
+          <div className='line vertical-line bottom-line'></div>
+        </div>
+      )}
+    </>
+  )
+
   return (
     <div className='page-selector'>
-      <DropDownItem
-        dropDownArrow={props.dropDownArrow}
-        toggleItem={toggleOpened}
-        isItemCurrentOpened={itemOpened}
-        dropDownItemName='Pages'
-      />
-      {itemOpened && (
-        <>
-          {pagesIds}
-          {!props.pagesFuncs.previewMode && (
-            <div
-              className='page-selector-add-item clickable'
-              onClick={props.pagesFuncs.addEmptyPage}
-            >
-              <div className='line vertical-line top-line'></div>
-              <div className='line horizontal-line'></div>
-              <div className='line vertical-line bottom-line'></div>
-            </div>
-          )}
-        </>
-      )}
+      <DropDownMenu menuTitle='Pages' content={pagesMenuEl} />
     </div>
   )
 }

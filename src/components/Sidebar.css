@@ -17,18 +17,12 @@
   align-self: start;
 }
 
-.dropdown {
+.project-name-container {
   display: flex;
-  flex-direction: row;
   justify-content: start;
   align-items: center;
-
   margin: 0;
-  margin-left: 10px;
-  margin-right: 10px;
   padding: 0;
-
-  height: 2.5rem;
 }
 
 .project-name-container > input,
@@ -37,11 +31,11 @@
   border: 1px solid white;
   border-radius: 6px;
 
-  width: 80%;
-  height: 100%;
-
-  margin: 0 auto;
+  margin: 0;
   padding: 3px 6px;
+
+  width: 90%;
+  height: 100%;
 }
 
 .allowed-item {
