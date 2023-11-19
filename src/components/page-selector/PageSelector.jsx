@@ -3,8 +3,8 @@ import DropDownMenu from '../dropdownmenu/DropDownMenu.jsx'
 import './PageSelector.css'
 
 export default function PageSelector(props) {
-  const pagesIds = props.pagesFuncs.pages
-    .sort((a, b) => a.pageId.localeCompare(b.pageId))
+  const pagesIds = [...props.pagesFuncs.pages]
+    ?.sort((a, b) => a.pageId.localeCompare(b.pageId))
     .map((page) => (
       <div
         key={`${page.id}-${page.pageId}-page-selector`}

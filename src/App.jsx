@@ -451,7 +451,6 @@ function App() {
         />
         {pagesFuncs.pages.length > 0 && (
           <PageSelector
-            dropDownArrow={generalFuncs.dropDownArrow}
             pagesFuncs={pagesFuncs}
           />
         )}
