@@ -1,8 +1,16 @@
 import React from 'react'
 import DropDownMenu from '../dropdownmenu/DropDownMenu'
+import { emptyPageData } from '../../DefaultValues'
 import './MessageTextContainer.css'
 
 export default function MessageTextContainer(props) {
+  const emptyMessageStr = 'Text on the page was not changed'
+
+  props.pagesFuncs.errors.update.checkConditionAndUpdateError(
+    props.pagesFuncs.currentPage?.text === emptyPageData.text,
+    emptyMessageStr,
+  )
+
   function handleKeyDown(e) {
     e.target.style.height = 'inherit'
     e.target.style.height = `${e.target.scrollHeight}px`

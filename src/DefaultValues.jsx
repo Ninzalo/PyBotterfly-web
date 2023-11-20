@@ -57,7 +57,7 @@ export const emptyRowData = {
   buttons: [],
 }
 
-const emptyPageData = {
+export const emptyPageData = {
   id: '',
   pageId: '',
   errorsOnPage: [],
