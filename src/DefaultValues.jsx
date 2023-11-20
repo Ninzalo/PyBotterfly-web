@@ -60,6 +60,7 @@ export const emptyRowData = {
 const emptyPageData = {
   id: '',
   pageId: '',
+  errorsOnPage: [],
   text: 'Enter message text',
   keyboardType: 'empty',
   rows: [emptyRowData],

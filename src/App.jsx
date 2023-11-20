@@ -233,6 +233,51 @@ function App() {
       const { name, value } = event.target
       pagesFuncs.changeCurrentPageField(name, value)
     },
+    errors: {
+      get: {
+        getPageErrors: () => {
+          const currentPageErrors = pagesFuncs.currentPage.errorsOnPage
+          return currentPageErrors
+        },
+        getPageErrorsWithoutCurrentError: (errorText) => {
+          const oldErrors = pagesFuncs.errors.get.getPageErrors()
+          const oldErrorsWithoutCurrentError = oldErrors.filter(
+            (oldError) => oldError !== errorText,
+          )
+          return oldErrorsWithoutCurrentError
+        },
+      },
+      update: {
+        addPageError: (errorText) => {
+          const name = 'errorsOnPage'
+          const currentPageErrors = pagesFuncs.errors.get.getPageErrors()
+          const newPageErrors = [...currentPageErrors, errorText]
+          pagesFuncs.changeCurrentPageField(name, newPageErrors)
+        },
+        removePageError: (errorText) => {
+          const name = 'errorsOnPage'
+          const oldErrorsWithoutCurrentError =
+            pagesFuncs.errors.get.getPageErrorsWithoutCurrentError(errorText)
+          pagesFuncs.changeCurrentPageField(name, oldErrorsWithoutCurrentError)
+        },
+        checkConditionAndUpdateError: (cond, errorText) => {
+          React.useEffect(() => {
+            const isIncludes = pagesFuncs.errors.get
+              .getPageErrors()
+              .includes(errorText)
+            if (cond) {
+              if (!isIncludes) {
+                pagesFuncs.errors.update.addPageError(errorText)
+              }
+            } else {
+              if (isIncludes) {
+                pagesFuncs.errors.update.removePageError(errorText)
+              }
+            }
+          }, [pages, pagesFuncs.currentPage])
+        },
+      },
+    },
     keyboard: {
       maxButtonsAmount: maxButtonsAmount,
       maxButtonsInRow: maxButtonsInRow,
@@ -450,14 +495,10 @@ function App() {
           pagesFuncs={pagesFuncs}
         />
         {pagesFuncs.pages.length > 0 && (
-          <PageSelector
-            pagesFuncs={pagesFuncs}
-          />
+          <PageSelector pagesFuncs={pagesFuncs} />
         )}
         {pagesFuncs.pages.length > 0 && !previewMode && (
-          <RightSidebar
-            pagesFuncs={pagesFuncs}
-          />
+          <RightSidebar pagesFuncs={pagesFuncs} />
         )}
       </div>
     </>

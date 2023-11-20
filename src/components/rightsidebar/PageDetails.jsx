@@ -2,18 +2,20 @@ import React from 'react'
 import './PageDetails.css'
 
 export default function PageDetails(props) {
+  const errorsOnPage = props.pagesFuncs.errors.get
+    .getPageErrors()
+    .map((errorOnPage) => (
+      <p key={errorOnPage.replace(/\s+/g, '')} className='warning-text'>
+        {errorOnPage}
+      </p>
+    ))
+
   return (
     <div className='page-details-container'>
       <h2 className='page-id-display-text'>
         {`Page ID: ${props.pagesFuncs.currentPage?.pageId}`}
       </h2>
-      {props.pagesFuncs.currentPage.pageId === '' && (
-        <p className='warning-text'>Page ID must be filled</p>
-      )}
-      {props.pagesFuncs.currentPage.pageId !== '' &&
-        !props.pagesFuncs.isPageIdUnique(
-          props.pagesFuncs.currentPage?.pageId,
-        ) && <p className='warning-text'>Page ID must be unique</p>}
+      {errorsOnPage}
     </div>
   )
 }
