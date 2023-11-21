@@ -298,6 +298,13 @@ function App() {
           .forEach((row) => (buttonsAmount += row.buttons.length))
         return buttonsAmount
       },
+      countRowsAmount: () => {
+        let rowsAmount = 0
+        pagesFuncs.keyboard.currentPageRows().forEach((row) => {
+          if (row.buttons.length) rowsAmount += 1
+        })
+        return rowsAmount
+      },
       findCurrentRow: (rowNum) => {
         const oldRows = pagesFuncs.keyboard.currentPageRows()
         const currentRow = oldRows.find((row) => row.rowNum === rowNum)
@@ -381,11 +388,15 @@ function App() {
           pagesFuncs.keyboard.getOldRowsWithoutCurrentRow(rowNum)
         const newCurrentRow = pagesFuncs.keyboard.getNewButton(rowNum)
         const newEmptyRow = pagesFuncs.keyboard.getNewEmptyRow()
-        const newRows = [
-          ...oldRowsWithoutCurrentRow,
-          newCurrentRow,
-          newEmptyRow,
-        ]
+
+        const nextRow = pagesFuncs.keyboard.findCurrentRow(rowNum + 1)
+
+        let newRows
+        if (nextRow && nextRow.buttons) {
+          newRows = [...oldRowsWithoutCurrentRow, newCurrentRow]
+        } else {
+          newRows = [...oldRowsWithoutCurrentRow, newCurrentRow, newEmptyRow]
+        }
         pagesFuncs.changeCurrentPageField('rows', newRows)
       },
       button: {
@@ -422,6 +433,43 @@ function App() {
             ],
           }
           const newRows = [...oldRowsWithoutCurrentRow, newCurrentRow]
+          pagesFuncs.changeCurrentPageField('rows', newRows)
+        },
+        removeButton: (buttonRow, buttonNum, buttonId) => {
+          const currentRowWithoutCurrentButton =
+            pagesFuncs.keyboard.getCurrentRowWithoutCurrentButton(
+              buttonRow,
+              buttonNum,
+              buttonId,
+            )
+          const nextRow = pagesFuncs.keyboard.findCurrentRow(buttonRow + 1)
+
+          const sortedCurrentRowWithoutCurrentButton = {
+            ...currentRowWithoutCurrentButton,
+            buttons: currentRowWithoutCurrentButton.buttons.map(
+              (button, buttonNum) => ({ ...button, num: buttonNum }),
+            ),
+          }
+          const oldRowsWithoutCurrentRow =
+            pagesFuncs.keyboard.getOldRowsWithoutCurrentRow(buttonRow)
+          const newCurrentRow = {
+            ...sortedCurrentRowWithoutCurrentButton,
+          }
+
+          let newRows
+          if (
+            newCurrentRow.buttons.length === 0 &&
+            nextRow &&
+            nextRow.buttons &&
+            nextRow.buttons.length === 0
+          ) {
+            const sortedOldRowsWithoutCurrentRow = oldRowsWithoutCurrentRow.map(
+              (row, rowNum) => ({ ...row, rowNum: rowNum }),
+            )
+            newRows = [...sortedOldRowsWithoutCurrentRow]
+          } else {
+            newRows = [...oldRowsWithoutCurrentRow, newCurrentRow]
+          }
           pagesFuncs.changeCurrentPageField('rows', newRows)
         },
         label: {
@@ -462,19 +510,57 @@ function App() {
             },
           },
         },
+        color: {
+          update: (buttonRow, buttonNum, buttonId, color) => {
+            pagesFuncs.keyboard.button.onChangeButtonField(
+              buttonRow,
+              buttonNum,
+              buttonId,
+              'color',
+              color,
+            )
+          },
+          get: (buttonRow, buttonNum, buttonId) => {
+            return pagesFuncs.keyboard.button.getCurrentButtonField(
+              buttonRow,
+              buttonNum,
+              buttonId,
+              'color',
+            )
+          },
+        },
       },
     },
   }
 
-  const generalFuncs = {
-    dropDownArrow: (item) => {
-      return item ? (
-        <span className='material-symbols-outlined'>expand_less</span>
-      ) : (
-        <span className='material-symbols-outlined'>expand_more</span>
-      )
-    },
-  }
+  React.useEffect(() => {
+    pagesFuncs.currentPage &&
+      pagesFuncs.currentPage.rows.forEach((row, i) => {
+        const nextRow = pagesFuncs.currentPage.rows[i + 1]
+        if (
+          nextRow &&
+          row.buttons.length === 0 &&
+          nextRow.buttons.length === 0
+        ) {
+          const oldRowsWithoutCurrentRow =
+            pagesFuncs.keyboard.getOldRowsWithoutCurrentRow(row.rowNum)
+          const sortedOldRowsWithoutCurrentRow = oldRowsWithoutCurrentRow.map(
+            (row, rowNum) => ({
+              ...row,
+              rowNum: rowNum,
+            }),
+          )
+          pagesFuncs.changeCurrentPageField(
+            'rows',
+            sortedOldRowsWithoutCurrentRow,
+          )
+        }
+      })
+
+    pagesFuncs.currentPage &&
+      pagesFuncs.keyboard.countButtonsAmount() === 0 &&
+      pagesFuncs.keyboard.changeType('empty')
+  }, [pagesFuncs.pages, pagesFuncs.currentPage])
 
   return (
     <>

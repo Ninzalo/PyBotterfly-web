@@ -146,7 +146,7 @@ function ButtonRowContainer(props) {
   ) {
     if (
       buttons.length === 0 &&
-      props.pagesFuncs.keyboard.currentPageRows().length - 1 <
+      props.pagesFuncs.keyboard.countRowsAmount() <
         props.pagesFuncs.keyboard.maxRows
     ) {
       buttons.push(emptyRowButton)

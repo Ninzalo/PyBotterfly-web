@@ -1,0 +1,83 @@
+.action-with-accept {
+  border: 1px solid var(--white-color);
+  border-radius: 0.5rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+
+  width: 80%;
+
+  margin: 0;
+  padding: 0;
+}
+
+.action-with-accept > .action-with-accept__expand {
+  background-color: var(--transparent-red-color);
+  border-radius: 0.5rem;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+
+  margin: 0;
+  padding: 0;
+}
+
+.action-with-accept > .action-with-accept__expand > h3 {
+  margin: 0;
+  padding: 0;
+}
+
+.action-with-accept > .action-with-accept__expanded {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  border-bottom: 1px solid var(--white-color);
+}
+
+.action-with-accept > .action-with-accept__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.action-with-accept > .action-with-accept__content > .action-with-accept__text {
+  font-weight: bold;
+  margin: 0.2rem 0;
+  padding: 0;
+}
+
+.action-with-accept
+  > .action-with-accept__content
+  > .action-with-accept__buttons {
+  display: flex;
+  flex-direction: row;
+}
+
+.action-with-accept
+  > .action-with-accept__content
+  > .action-with-accept__buttons
+  > .action-with-accept__button {
+  /* background-color: var(--transparent-red-color); */
+
+  border: 1px solid var(--white-color);
+  border-radius: 0.5rem;
+
+  margin: 0.1rem 0.2rem 0.5rem 0.2rem;
+  padding: 0.1rem 0.2rem;
+
+  min-width: 5rem;
+}
+
+.action-with-accept
+  > .action-with-accept__content
+  > .action-with-accept__buttons
+  > .yes {
+  background-color: var(--transparent-red-color);
+}

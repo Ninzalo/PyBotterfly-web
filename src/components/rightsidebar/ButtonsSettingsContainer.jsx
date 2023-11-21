@@ -1,5 +1,6 @@
 import React from 'react'
 import DropDownMenu from '../dropdownmenu/DropDownMenu'
+import ActionWithAccept from '../actionWithAccept/ActionWithAccept'
 import {
   emptyButtonData,
   buttonSettingObj,
@@ -78,6 +79,12 @@ function ButtonSettings(props) {
           pagesFuncs={props.pagesFuncs}
         />
         <ButtonColorSetting
+          buttonRow={props.buttonRow}
+          buttonNum={props.buttonNum}
+          button={props.button}
+          pagesFuncs={props.pagesFuncs}
+        />
+        <DeleteItemSetting
           buttonRow={props.buttonRow}
           buttonNum={props.buttonNum}
           button={props.button}
@@ -200,11 +207,10 @@ function ButtonColorPicker(props) {
         itemName={color}
         isChecked={props.buttonColor === color ? true : false}
         onClick={() =>
-          props.pagesFuncs.keyboard.button.onChangeButtonField(
+          props.pagesFuncs.keyboard.button.color.update(
             props.buttonRow,
             props.buttonNum,
             props.button.id,
-            'color',
             color,
           )
         }
@@ -237,5 +243,23 @@ function ButtonActionSetting(props) {
 }
 
 function DeleteItemSetting(props) {
-  return <></>
+  const title = `Delete button`
+  const acceptAction = () => {
+    props.pagesFuncs.keyboard.button.removeButton(
+      props.buttonRow,
+      props.buttonNum,
+      props.button.id,
+    )
+  }
+  const customAcceptText = 'Are you sure?'
+
+  return (
+    <div className='button-delete-setting'>
+      <ActionWithAccept
+        actionTitle={title}
+        acceptAction={acceptAction}
+        customAcceptText={customAcceptText}
+      />
+    </div>
+  )
 }
