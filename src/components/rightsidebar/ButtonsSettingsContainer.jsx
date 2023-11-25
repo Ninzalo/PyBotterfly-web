@@ -1,10 +1,13 @@
 import React from 'react'
 import DropDownMenu from '../dropdownmenu/DropDownMenu'
+
 import ButtonLabelSetting from './buttonSettings/LabelSetting'
 import ButtonColorSetting from './buttonSettings/ColorSetting'
 import ButtonPositionSetting from './buttonSettings/PositionSetting'
 import DeleteButtonSetting from './buttonSettings/DeleteSetting'
+
 import { emptyButtonData, buttonSettingObj } from '../../DefaultValues'
+
 import './ButtonsSettingsContainer.css'
 
 export default function ButtonsSettingsContainer(props) {
@@ -21,31 +24,39 @@ export default function ButtonsSettingsContainer(props) {
       }
       if (currentButton.id) {
         const key = `settings-${currentButton.id}`
-        buttons.push(
-          <ButtonSettings
-            key={key}
-            buttonRow={i}
-            buttonNum={j}
-            button={currentButtonObj.button}
-            buttonName={
-              currentButtonObj.button.label === emptyButtonData.label
-                ? `${emptyButtonData.label} ${currentButtonObj.row + 1} ${
-                    currentButtonObj.num + 1
-                  }`
-                : currentButtonObj.button.label
-            }
-            pagesFuncs={props.pagesFuncs}
-          />,
-        )
+        const buttonName =
+          currentButtonObj.button.label === emptyButtonData.label
+            ? `${emptyButtonData.label} ${currentButtonObj.row + 1} ${
+                currentButtonObj.num + 1
+              }`
+            : currentButtonObj.button.label
+
+        buttons.push({
+          buttonName: buttonName,
+          buttonSettingsEl: (
+            <ButtonSettings
+              key={key}
+              buttonRow={i}
+              buttonNum={j}
+              button={currentButtonObj.button}
+              buttonName={buttonName}
+              pagesFuncs={props.pagesFuncs}
+            />
+          ),
+        })
       }
     }
   }
 
   if (buttons.length === 0) return <></>
 
+  const sortedButtonsEl = buttons
+    .sort((a, b) => a.buttonName.localeCompare(b.buttonName))
+    .map((button) => button.buttonSettingsEl)
+
   const buttonsSettingsEl = (
     <div className='buttons-settings-container'>
-      <>{buttons}</>
+      <>{sortedButtonsEl}</>
     </div>
   )
 

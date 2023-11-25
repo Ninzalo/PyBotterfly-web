@@ -181,6 +181,11 @@ function App() {
 
   const pagesFuncs = {
     previewMode: previewMode,
+    limits: {
+      maxRows: maxRows,
+      maxButtonsInRow: maxButtonsInRow,
+      maxButtonsAmount: maxButtonsAmount,
+    },
     pages: pages,
     currentPageId: currentPageId,
     currentPage: pages.find((page) => page.id === currentPageId),
@@ -388,9 +393,7 @@ function App() {
           pagesFuncs.keyboard.getOldRowsWithoutCurrentRow(rowNum)
         const newCurrentRow = pagesFuncs.keyboard.getNewButton(rowNum)
         const newEmptyRow = pagesFuncs.keyboard.getNewEmptyRow()
-
         const nextRow = pagesFuncs.keyboard.findCurrentRow(rowNum + 1)
-
         let newRows
         if (nextRow && nextRow.buttons) {
           newRows = [...oldRowsWithoutCurrentRow, newCurrentRow]
@@ -443,7 +446,6 @@ function App() {
               buttonId,
             )
           const nextRow = pagesFuncs.keyboard.findCurrentRow(buttonRow + 1)
-
           const sortedCurrentRowWithoutCurrentButton = {
             ...currentRowWithoutCurrentButton,
             buttons: currentRowWithoutCurrentButton.buttons.map(
@@ -455,7 +457,6 @@ function App() {
           const newCurrentRow = {
             ...sortedCurrentRowWithoutCurrentButton,
           }
-
           let newRows
           if (
             newCurrentRow.buttons.length === 0 &&
@@ -527,6 +528,138 @@ function App() {
               buttonId,
               'color',
             )
+          },
+        },
+        position: {
+          get: {
+            allButtons: () => {
+              if (!pagesFuncs.currentPage) return []
+              let allRowsArr = []
+              pagesFuncs.currentPage.rows.forEach((row) => {
+                let allButtonsArr = []
+                row.buttons.forEach((button) => {
+                  allButtonsArr.push({
+                    row: row.rowNum,
+                    num: button.num,
+                    id: button.id,
+                  })
+                })
+                allRowsArr.push(allButtonsArr)
+              })
+              return allRowsArr
+            },
+          },
+          update: {
+            replace: (
+              currentButtonRow,
+              currentButtonNum,
+              currentButtonId,
+              moveToButtonRow,
+              moveToButtonNum,
+              moveToButtonId,
+            ) => {
+              const currentButton = pagesFuncs.keyboard.findCurrentButton(
+                currentButtonRow,
+                currentButtonNum,
+                currentButtonId,
+              )
+              const moveToButton = pagesFuncs.keyboard.findCurrentButton(
+                moveToButtonRow,
+                moveToButtonNum,
+                moveToButtonId,
+              )
+              const oldRows = pagesFuncs.currentPage.rows
+              const filteredOldRows = oldRows.map((row) => ({
+                ...row,
+                buttons: row.buttons.filter(
+                  (button) =>
+                    button.id !== currentButton.id &&
+                    button.id !== moveToButton.id,
+                ),
+              }))
+              const newCurrentButton = {
+                ...currentButton,
+                num: moveToButton.num,
+              }
+              const newMoveToButton = {
+                ...moveToButton,
+                num: currentButton.num,
+              }
+              const newRows = filteredOldRows.map((row) => {
+                if (currentButtonRow === moveToButtonRow) {
+                  if (row.rowNum === currentButtonRow) {
+                    return {
+                      ...row,
+                      buttons: [
+                        ...row.buttons,
+                        newMoveToButton,
+                        newCurrentButton,
+                      ],
+                    }
+                  } else return row
+                }
+                if (row.rowNum === moveToButtonRow) {
+                  return { ...row, buttons: [...row.buttons, newCurrentButton] }
+                } else if (row.rowNum === currentButtonRow) {
+                  return { ...row, buttons: [...row.buttons, newMoveToButton] }
+                } else return row
+              })
+              pagesFuncs.changeCurrentPageField('rows', newRows)
+            },
+            replaceToNew: (
+              currentButtonRow,
+              currentButtonNum,
+              currentButtonId,
+              moveToButtonRow,
+            ) => {
+              const currentButton = pagesFuncs.keyboard.findCurrentButton(
+                currentButtonRow,
+                currentButtonNum,
+                currentButtonId,
+              )
+              const oldRows = pagesFuncs.currentPage.rows
+              const filteredOldRows = oldRows.map((row) => ({
+                ...row,
+                buttons: row.buttons.filter(
+                  (button) => button.id !== currentButton.id,
+                ),
+              }))
+              const newCurrentButtonNum = oldRows.filter(
+                (row) => row.rowNum === moveToButtonRow,
+              )[0].buttons.length
+              const newCurrentButton = {
+                ...currentButton,
+                num: newCurrentButtonNum,
+              }
+              let newRows = filteredOldRows.map((row) => {
+                if (row.rowNum === moveToButtonRow) {
+                  return {
+                    ...row,
+                    buttons: [...row.buttons, newCurrentButton].map(
+                      (button, buttonIndex) => ({
+                        ...button,
+                        num: buttonIndex,
+                      }),
+                    ),
+                  }
+                } else
+                  return {
+                    ...row,
+                    buttons: row.buttons.map((button, buttonIndex) => ({
+                      ...button,
+                      num: buttonIndex,
+                    })),
+                  }
+              })
+              if (newRows[newRows.length - 1].buttons.length > 0) {
+                newRows.push({
+                  ...emptyRowData,
+                  rowNum: newRows.length,
+                  buttons: [],
+                })
+              }
+              pagesFuncs.changeCurrentPageField('rows', newRows)
+            },
           },
         },
       },
