@@ -1,0 +1,24 @@
+.button-label-input > input {
+  background-color: var(--panel-grey-color);
+  border: 1px solid white;
+  border-radius: 6px;
+
+  margin: 0;
+  padding: 3px 6px;
+
+  width: 90%;
+  height: 100%;
+}
+
+.is-custom-label-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+}
+
+.is-custom-label-container > h3 {
+  margin: 0;
+  margin-left: 10px;
+  padding: 0;
+}
