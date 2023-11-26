@@ -6,8 +6,11 @@ import './MessageTextContainer.css'
 export default function MessageTextContainer(props) {
   const emptyMessageStr = 'Text on the page was not changed'
 
-  props.pagesFuncs.errors.update.checkConditionAndUpdateError(
-    props.pagesFuncs.currentPage?.text === emptyPageData.text,
+  const currentPageText =
+    props.pagesFuncs.pages.currentPage.get.currentPageText()
+
+  props.pagesFuncs.pages.currentPage.errors.update.checkConditionAndUpdateError(
+    currentPageText === emptyPageData.text,
     emptyMessageStr,
   )
 
@@ -21,8 +24,10 @@ export default function MessageTextContainer(props) {
       <textarea
         onKeyDown={handleKeyDown}
         name='text'
-        onChange={props.pagesFuncs.onChangeCurrentPageText}
-        value={props.pagesFuncs.currentPage?.text}
+        onChange={
+          props.pagesFuncs.pages.currentPage.update.onChangeCurrentPageText
+        }
+        value={currentPageText}
       />
     </div>
   )

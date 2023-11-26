@@ -10,7 +10,8 @@ export default function ButtonPositionSetting(props) {
     id: props.button.id,
   }
 
-  const allRowsArr = props.pagesFuncs.keyboard.button.position.get.allButtons()
+  const allRowsArr =
+    props.pagesFuncs.pages.currentPage.keyboard.button.field.position.get.allButtons()
 
   const allRowsEl = allRowsArr.map((row, index) => (
     <MiniRow
@@ -45,7 +46,10 @@ function MiniRow(props) {
     )
   })
 
-  if (allButtonsEl.length < props.pagesFuncs.limits.maxButtonsInRow) {
+  if (
+    allButtonsEl.length <
+    props.pagesFuncs.pages.currentPage.keyboard.limits.get.maxButtonsInRow
+  ) {
     const row = props.rowNum
     const num = allButtonsEl.length
     const id = nanoid()
@@ -74,7 +78,7 @@ function MiniButton(props) {
   let onClickFunc
   if (!isCurrent && !isNew) {
     onClickFunc = () =>
-      props.pagesFuncs.keyboard.button.position.update.replace(
+      props.pagesFuncs.pages.currentPage.keyboard.button.field.position.update.replace(
         props.currentButton.row,
         props.currentButton.num,
         props.currentButton.id,
@@ -84,7 +88,7 @@ function MiniButton(props) {
       )
   } else if (!isCurrent && isNew) {
     onClickFunc = () => {
-      props.pagesFuncs.keyboard.button.position.update.replaceToNew(
+      props.pagesFuncs.pages.currentPage.keyboard.button.field.position.update.replaceToNew(
         props.currentButton.row,
         props.currentButton.num,
         props.currentButton.id,

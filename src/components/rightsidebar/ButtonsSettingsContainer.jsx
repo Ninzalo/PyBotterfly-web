@@ -12,8 +12,15 @@ import './ButtonsSettingsContainer.css'
 
 export default function ButtonsSettingsContainer(props) {
   let buttons = []
-  for (let i = 0; i < props.pagesFuncs.currentPage.rows.length; i++) {
-    const currentRow = props.pagesFuncs.currentPage.rows[i]
+  for (
+    let i = 0;
+    i <
+    props.pagesFuncs.pages.currentPage.keyboard.rows.get.currentPageRows()
+      .length;
+    i++
+  ) {
+    const currentRow =
+      props.pagesFuncs.pages.currentPage.keyboard.rows.get.currentPageRows()[i]
     for (let j = 0; j < currentRow.buttons.length; j++) {
       const currentButton = currentRow.buttons[j]
       const currentButtonObj = {

@@ -4,11 +4,11 @@ import './Page.css'
 
 export default function PreviewConstructor(props) {
   let page
-  if (props.pagesFuncs.currentPage) {
+  if (props.pagesFuncs.pages.currentPage.get.currentPage()) {
     page = (
       <Page
-        key={props.pagesFuncs.currentPage.id}
-        internalPageId={props.pagesFuncs.currentPage.id}
+        key={props.pagesFuncs.pages.currentPage.get.currentPage().id}
+        internalPageId={props.pagesFuncs.pages.currentPage.get.currentPageInternalId()}
         projectName={props.projectNameFuncs.projectName}
         pagesFuncs={props.pagesFuncs}
       />
@@ -20,7 +20,7 @@ export default function PreviewConstructor(props) {
       {!page ? (
         <div
           className='empty-pages-list clickable'
-          onClick={props.pagesFuncs.addEmptyPage}
+          onClick={props.pagesFuncs.pages.update.addEmptyPage}
         >
           <div className='line vertical-line top-line'></div>
           <div className='line horizontal-line'></div>

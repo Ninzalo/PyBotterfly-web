@@ -5,14 +5,16 @@ export default function PageIdContainer(props) {
   const unfilledPageIdErrorText = 'Page ID must be filled'
   const nonUniquePageIdErrorText = 'Page ID must be unique'
 
-  props.pagesFuncs.errors.update.checkConditionAndUpdateError(
-    props.pagesFuncs.currentPage.pageId === '',
+  const currentPageId = props.pagesFuncs.pages.currentPage.get.currentPageId()
+
+  props.pagesFuncs.pages.currentPage.errors.update.checkConditionAndUpdateError(
+    currentPageId === '',
     unfilledPageIdErrorText,
   )
 
-  props.pagesFuncs.errors.update.checkConditionAndUpdateError(
-    props.pagesFuncs.currentPage.pageId !== '' &&
-      !props.pagesFuncs.isPageIdUnique(props.pagesFuncs.currentPage?.pageId),
+  props.pagesFuncs.pages.currentPage.errors.update.checkConditionAndUpdateError(
+    currentPageId !== '' &&
+      !props.pagesFuncs.pages.get.isPageIdUnique(currentPageId),
     nonUniquePageIdErrorText,
   )
 
@@ -23,8 +25,10 @@ export default function PageIdContainer(props) {
         placeholder='Page ID'
         maxLength={25}
         name='pageId'
-        onChange={props.pagesFuncs.onChangeCurrentPageId}
-        value={props.pagesFuncs.currentPage?.pageId}
+        onChange={
+          props.pagesFuncs.pages.currentPage.update.onChangeCurrentPageId
+        }
+        value={currentPageId}
       />
     </div>
   )

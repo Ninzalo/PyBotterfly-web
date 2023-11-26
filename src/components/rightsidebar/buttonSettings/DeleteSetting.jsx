@@ -4,7 +4,7 @@ import ActionWithAccept from '../../actionWithAccept/ActionWithAccept'
 export default function DeleteButtonSetting(props) {
   const title = `Delete button`
   const acceptAction = () => {
-    props.pagesFuncs.keyboard.button.removeButton(
+    props.pagesFuncs.pages.currentPage.keyboard.button.remove.update.removeButton(
       props.buttonRow,
       props.buttonNum,
       props.button.id,

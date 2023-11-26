@@ -3,17 +3,22 @@ import DropDownMenu from '../dropdownmenu/DropDownMenu.jsx'
 import './PageSelector.css'
 
 export default function PageSelector(props) {
-  const pagesIds = [...props.pagesFuncs.pages]
+  const pagesIds = [...props.pagesFuncs.pages.get.pages]
     ?.sort((a, b) => a.pageId.localeCompare(b.pageId))
     .map((page) => (
       <div
         key={`${page.id}-${page.pageId}-page-selector`}
         className='page-selector-item clickable'
-        onClick={() => props.pagesFuncs.changeCurrentPage(page.id)}
+        onClick={() =>
+          props.pagesFuncs.pages.currentPage.update.currentPage(page.id)
+        }
       >
         <h3
           className={`${
-            props.pagesFuncs.currentPageId === page.id ? 'active-page' : ''
+            props.pagesFuncs.pages.currentPage.get.currentPageInternalId() ===
+            page.id
+              ? 'active-page'
+              : ''
           }`}
         >
           {page.pageId === '' ? 'Unnamed page' : page.pageId}
@@ -24,10 +29,10 @@ export default function PageSelector(props) {
   const pagesMenuEl = (
     <>
       {pagesIds}
-      {!props.pagesFuncs.previewMode && (
+      {!props.pagesFuncs.constants.previewMode && (
         <div
           className='page-selector-add-item clickable'
-          onClick={props.pagesFuncs.addEmptyPage}
+          onClick={() => props.pagesFuncs.pages.update.addEmptyPage()}
         >
           <div className='line vertical-line top-line'></div>
           <div className='line horizontal-line'></div>

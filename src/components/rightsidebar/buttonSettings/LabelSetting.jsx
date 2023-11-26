@@ -6,7 +6,7 @@ import './LabelSetting.css'
 
 export default function ButtonLabelSetting(props) {
   const buttonLabel =
-    props.pagesFuncs.keyboard.button.label.get.currentButtonLabel(
+    props.pagesFuncs.pages.currentPage.keyboard.button.field.label.get.currentButtonLabel(
       props.buttonRow,
       props.buttonNum,
       props.button.id,
@@ -19,7 +19,7 @@ export default function ButtonLabelSetting(props) {
         placeholder='Button'
         maxLength={defaultButtonSettings.maxLabelLength}
         onChange={(event) =>
-          props.pagesFuncs.keyboard.button.onChangeButtonField(
+          props.pagesFuncs.pages.currentPage.keyboard.button.field.update.onChangeButtonField(
             props.buttonRow,
             props.buttonNum,
             props.button.id,
@@ -33,7 +33,7 @@ export default function ButtonLabelSetting(props) {
   )
 
   const toggleIsCustomLabel = () => {
-    props.pagesFuncs.keyboard.button.label.update.toggleIsCustomLabel(
+    props.pagesFuncs.pages.currentPage.keyboard.button.field.label.update.toggleIsCustomLabel(
       props.buttonRow,
       props.buttonNum,
       props.button.id,
@@ -41,7 +41,7 @@ export default function ButtonLabelSetting(props) {
   }
 
   const currentButtonIsCustomLabel =
-    props.pagesFuncs.keyboard.button.label.get.currentButtonIsCustomLabel(
+    props.pagesFuncs.pages.currentPage.keyboard.button.field.label.get.currentButtonIsCustomLabel(
       props.buttonRow,
       props.buttonNum,
       props.button.id,

@@ -4,11 +4,12 @@ import { defaultButtonColors } from '../../../DefaultValues'
 import './ColorSetting.css'
 
 export default function ButtonColorSetting(props) {
-  const currentButtonColor = props.pagesFuncs.keyboard.findCurrentButton(
-    props.buttonRow,
-    props.buttonNum,
-    props.button.id,
-  ).color
+  const currentButtonColor =
+    props.pagesFuncs.pages.currentPage.keyboard.buttons.get.findCurrentButton(
+      props.buttonRow,
+      props.buttonNum,
+      props.button.id,
+    ).color
 
   const currentButtonColorEl = (
     <div className='current-button-color'>{currentButtonColor}</div>
@@ -45,7 +46,7 @@ function ButtonColorPicker(props) {
         itemName={color}
         isChecked={props.buttonColor === color ? true : false}
         onClick={() =>
-          props.pagesFuncs.keyboard.button.color.update(
+          props.pagesFuncs.pages.currentPage.keyboard.button.field.color.update.currentColor(
             props.buttonRow,
             props.buttonNum,
             props.button.id,

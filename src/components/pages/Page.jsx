@@ -4,12 +4,15 @@ import { emptyButtonData } from '../../DefaultValues'
 import './Page.css'
 
 export default function Page(props) {
-  const keyboardType = props.pagesFuncs.currentPage.keyboardType
+  const keyboardType =
+    props.pagesFuncs.pages.currentPage.keyboard.type.get.type()
   return (
     <div className='page'>
       <TopInfoContainer
         projectName={props.projectName}
-        onDelete={() => props.pagesFuncs.removePage(props.internalPageId)}
+        onDelete={() =>
+          props.pagesFuncs.pages.update.removePageById(props.internalPageId)
+        }
       />
       <MessageContainer
         projectName={props.projectName}
@@ -42,13 +45,16 @@ function TopInfoContainer(props) {
 }
 
 function MessageContainer(props) {
-  const keyboardType = props.pagesFuncs.currentPage.keyboardType
+  const keyboardType =
+    props.pagesFuncs.pages.currentPage.keyboard.type.get.type()
   return (
     <div className='message-container'>
       <BotLogo />
       <div className='message-output'>
         <h3>{props.projectName}</h3>
-        <div className='textarea'>{props.pagesFuncs.currentPage.text}</div>
+        <div className='textarea'>
+          {props.pagesFuncs.pages.currentPage.get.currentPageText()}
+        </div>
         {(keyboardType === 'empty' || keyboardType === 'inline') && (
           <InlineButtonsContainer pagesFuncs={props.pagesFuncs} />
         )}
@@ -58,27 +64,35 @@ function MessageContainer(props) {
 }
 
 function generateRows(props, onClickNewType) {
-  let buttonRowsContainers = props.pagesFuncs.currentPage?.rows
-    .sort((a, b) => a.rowNum - b.rowNum)
-    .map((row) => {
-      const handleEmptyRowClick = () =>
-        props.pagesFuncs.keyboard.addEmptyButtonAndRow(row.rowNum)
-      const handleIncompleteRowClick = () =>
-        props.pagesFuncs.keyboard.addEmptyButtonInRow(row.rowNum)
-      const handleChangeKeyboardType = () =>
-        props.pagesFuncs.keyboard.changeType(onClickNewType)
-      return (
-        <ButtonRowContainer
-          key={row.rowNum}
-          buttons={row.buttons}
-          rowNum={row.rowNum}
-          pagesFuncs={props.pagesFuncs}
-          handleEmptyRowClick={handleEmptyRowClick}
-          handleIncompleteRowClick={handleIncompleteRowClick}
-          handleChangeKeyboardType={handleChangeKeyboardType}
-        />
-      )
-    })
+  let buttonRowsContainers =
+    props.pagesFuncs.pages.currentPage.keyboard.rows.get
+      .currentPageRows()
+      .sort((a, b) => a.rowNum - b.rowNum)
+      .map((row) => {
+        const handleEmptyRowClick = () =>
+          props.pagesFuncs.pages.currentPage.keyboard.rows.update.addEmptyButtonAndRow(
+            row.rowNum,
+          )
+        const handleIncompleteRowClick = () =>
+          props.pagesFuncs.pages.currentPage.keyboard.rows.update.addEmptyButtonInRow(
+            row.rowNum,
+          )
+        const handleChangeKeyboardType = () =>
+          props.pagesFuncs.pages.currentPage.keyboard.type.update.changeType(
+            onClickNewType,
+          )
+        return (
+          <ButtonRowContainer
+            key={row.rowNum}
+            buttons={row.buttons}
+            rowNum={row.rowNum}
+            pagesFuncs={props.pagesFuncs}
+            handleEmptyRowClick={handleEmptyRowClick}
+            handleIncompleteRowClick={handleIncompleteRowClick}
+            handleChangeKeyboardType={handleChangeKeyboardType}
+          />
+        )
+      })
   return buttonRowsContainers
 }
 
@@ -107,7 +121,6 @@ function ButtonRowContainer(props) {
       <Button
         key={button.id}
         id={button.id}
-        // label={button.label}
         label={
           button.label === emptyButtonData.label
             ? `${emptyButtonData.label} ${props.rowNum + 1} ${button.num + 1}`
@@ -140,19 +153,20 @@ function ButtonRowContainer(props) {
   )
 
   if (
-    props.pagesFuncs.keyboard.countButtonsAmount() <
-      props.pagesFuncs.keyboard.maxButtonsAmount &&
-    !props.pagesFuncs.previewMode
+    props.pagesFuncs.pages.currentPage.keyboard.buttons.get.countButtonsAmount() <
+      props.pagesFuncs.pages.currentPage.keyboard.limits.get.maxButtonsAmount &&
+    !props.pagesFuncs.constants.previewMode
   ) {
     if (
       buttons.length === 0 &&
-      props.pagesFuncs.keyboard.countRowsAmount() <
-        props.pagesFuncs.keyboard.maxRows
+      props.pagesFuncs.pages.currentPage.keyboard.rows.get.countRowsAmount() <
+        props.pagesFuncs.pages.currentPage.keyboard.limits.get.maxRows
     ) {
       buttons.push(emptyRowButton)
     } else if (
       buttons.length > 0 &&
-      buttons.length < props.pagesFuncs.keyboard.maxButtonsInRow
+      buttons.length <
+        props.pagesFuncs.pages.currentPage.keyboard.limits.get.maxButtonsInRow
     ) {
       buttons.push(incompleteRowButton)
     }
