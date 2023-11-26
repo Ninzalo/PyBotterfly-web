@@ -13,12 +13,15 @@ export default function ButtonPositionSetting(props) {
   const allRowsArr =
     props.pagesFuncs.pages.currentPage.keyboard.button.field.position.get.allButtons()
 
+  const nonEmptyRowsAmount = allRowsArr.filter((row) => row.length > 0).length
+
   const allRowsEl = allRowsArr.map((row, index) => (
     <MiniRow
       key={`mini-row-${currentButton.id}-${index}`}
       currentButton={currentButton}
       row={row}
       rowNum={index}
+      nonEmptyRowsAmount={nonEmptyRowsAmount}
       pagesFuncs={props.pagesFuncs}
     />
   ))
@@ -47,8 +50,12 @@ function MiniRow(props) {
   })
 
   if (
-    allButtonsEl.length <
-    props.pagesFuncs.pages.currentPage.keyboard.limits.get.maxButtonsInRow
+    (allButtonsEl.length === 0 &&
+      props.nonEmptyRowsAmount <
+        props.pagesFuncs.pages.currentPage.keyboard.limits.get.maxRows) ||
+    (allButtonsEl.length > 0 &&
+      allButtonsEl.length <
+        props.pagesFuncs.pages.currentPage.keyboard.limits.get.maxButtonsInRow)
   ) {
     const row = props.rowNum
     const num = allButtonsEl.length
