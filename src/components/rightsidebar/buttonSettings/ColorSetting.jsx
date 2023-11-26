@@ -5,11 +5,11 @@ import './ColorSetting.css'
 
 export default function ButtonColorSetting(props) {
   const currentButtonColor =
-    props.pagesFuncs.pages.currentPage.keyboard.buttons.get.findCurrentButton(
+    props.pagesFuncs.pages.currentPage.keyboard.button.field.color.get.currentColor(
       props.buttonRow,
       props.buttonNum,
       props.button.id,
-    ).color
+    )
 
   const currentButtonColorEl = (
     <div className='current-button-color'>{currentButtonColor}</div>

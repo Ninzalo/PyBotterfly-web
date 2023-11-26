@@ -32,7 +32,7 @@ export default function PageSelector(props) {
       {!props.pagesFuncs.constants.previewMode && (
         <div
           className='page-selector-add-item clickable'
-          onClick={() => props.pagesFuncs.pages.update.addEmptyPage()}
+          onClick={props.pagesFuncs.pages.update.addEmptyPage}
         >
           <div className='line vertical-line top-line'></div>
           <div className='line horizontal-line'></div>

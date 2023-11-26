@@ -186,9 +186,6 @@ function App() {
     pages: {
       get: {
         pages: pages,
-        allPagesIds: () => [
-          pagesFuncs.pages.get.pages.map((page) => page.pageId),
-        ],
         isPageIdUnique: (pageId) =>
           pages.filter((page) => page.pageId === pageId).length === 1,
       },
@@ -417,15 +414,6 @@ function App() {
             },
 
             update: {
-              addEmptyRow: () => {
-                const oldRows =
-                  pagesFuncs.pages.currentPage.keyboard.rows.get.currentPageRows()
-                const newRow =
-                  pagesFuncs.pages.currentPage.keyboard.rows.get.getNewEmptyRow()
-                const newRows = [...oldRows, newRow]
-                pagesFuncs.pages.currentPage.update.field('rows', newRows)
-              },
-
               addEmptyButtonInRow: (rowNum) => {
                 const oldRowsWithoutCurrentRow =
                   pagesFuncs.pages.currentPage.keyboard.rows.get.getOldRowsWithoutCurrentRow(
@@ -435,18 +423,6 @@ function App() {
                   pagesFuncs.pages.currentPage.keyboard.buttons.get.getNewButton(
                     rowNum,
                   )
-                const newRows = [...oldRowsWithoutCurrentRow, newCurrentRow]
-                pagesFuncs.pages.currentPage.update.field('rows', newRows)
-              },
-
-              addButtonInRow: (rowNum, button) => {
-                const oldCurrentRow = pagesFuncs.keyboard.findCurrentRow(rowNum)
-                const oldRowsWithoutCurrentRow =
-                  pagesFuncs.keyboard.getOldRowsWithoutCurrentRow(rowNum)
-                const newCurrentRow = {
-                  ...oldCurrentRow,
-                  buttons: [...oldCurrentRow.buttons, button],
-                }
                 const newRows = [...oldRowsWithoutCurrentRow, newCurrentRow]
                 pagesFuncs.pages.currentPage.update.field('rows', newRows)
               },
