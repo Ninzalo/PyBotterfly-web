@@ -313,7 +313,10 @@ function App() {
                     )
                   }
                 }
-              }, [pages, pagesFuncs.currentPage])
+              }, [
+                pagesFuncs.pages.get.pages,
+                pagesFuncs.pages.currentPage.get.currentPage(),
+              ])
             },
           },
         },
@@ -867,7 +870,10 @@ function App() {
       pagesFuncs.pages.currentPage.keyboard.buttons.get.countButtonsAmount() ===
         0 &&
       pagesFuncs.pages.currentPage.keyboard.type.update.changeType('empty')
-  }, [pagesFuncs.pages, pagesFuncs.pages.currentPage.get.currentPage()])
+  }, [
+    pagesFuncs.pages.get.pages,
+    pagesFuncs.pages.currentPage.get.currentPage(),
+  ])
 
   return (
     <>
