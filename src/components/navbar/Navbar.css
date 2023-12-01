@@ -1,7 +1,7 @@
 .navbar {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 
   border-radius: 10px;
@@ -10,9 +10,38 @@
   color: white;
   text-align: center;
 
-  margin: 0;
+  margin: 0 1vw;
   padding: 0;
 
   height: 50px;
-  width: 100%;
+  width: calc(100% - 2vw);
+}
+
+.navbar > .toggle-leftsidebar {
+  margin: 0;
+  margin-left: 20px;
+  padding: 0;
+}
+
+.navbar > .toggle-leftsidebar > .toggle-leftsidebar-line {
+  background-color: var(--light-grey-color);
+
+  border: none;
+  border-radius: 5px;
+
+  height: 5px;
+  width: 40px;
+
+  margin: 5px 0;
+  padding: 0;
+}
+
+.navbar > .preview-mode-container {
+  display: flex;
+  flex-direction: row;
+  margin-right: 20px;
+}
+
+.navbar > .preview-mode-container > h3 {
+  margin-right: 10px;
 }

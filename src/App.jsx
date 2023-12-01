@@ -8,6 +8,14 @@ import { defaultValues, emptyRowData, emptyButtonData } from './DefaultValues'
 import { nanoid } from 'nanoid'
 
 function App() {
+  const [isLeftSidebarOpened, setIsLeftSidebarOpened] = React.useState(true)
+  const leftSidebarFuncs = {
+    isLeftSidebarOpened: isLeftSidebarOpened,
+    toggleLeftSidebarOpened: () => {
+      setIsLeftSidebarOpened((prevState) => !prevState)
+    },
+  }
+
   const [projectName, setProjectName] = React.useState(
     defaultValues.projectName,
   )
@@ -877,18 +885,22 @@ function App() {
 
   return (
     <>
-      <Navbar />
+      <Navbar
+        leftSidebarFuncs={leftSidebarFuncs}
+        previewModeFuncs={previewModeFuncs}
+      />
       <div className='main'>
-        <LeftSidebar
-          projectNameFuncs={projectNameFuncs}
-          maxButtonsAmountFuncs={maxButtonsAmountFuncs}
-          maxButtonsInRowFuncs={maxButtonsInRowFuncs}
-          maxRowsFuncs={maxRowsFuncs}
-          photoExtensionsFuncs={photoExtensionsFuncs}
-          fileExtensionsFuncs={fileExtensionsFuncs}
-          debugStateFuncs={debugStateFuncs}
-          previewModeFuncs={previewModeFuncs}
-        />
+        {isLeftSidebarOpened && (
+          <LeftSidebar
+            projectNameFuncs={projectNameFuncs}
+            maxButtonsAmountFuncs={maxButtonsAmountFuncs}
+            maxButtonsInRowFuncs={maxButtonsInRowFuncs}
+            maxRowsFuncs={maxRowsFuncs}
+            photoExtensionsFuncs={photoExtensionsFuncs}
+            fileExtensionsFuncs={fileExtensionsFuncs}
+            debugStateFuncs={debugStateFuncs}
+          />
+        )}
         <PreviewConstructor
           projectNameFuncs={projectNameFuncs}
           pagesFuncs={pagesFuncs}
@@ -897,7 +909,7 @@ function App() {
           <PageSelector pagesFuncs={pagesFuncs} />
         )}
         {pagesFuncs.pages.get.pages.length > 0 &&
-          !pagesFuncs.constants.previewMode && (
+          !previewModeFuncs.previewMode && (
             <RightSidebar pagesFuncs={pagesFuncs} />
           )}
       </div>

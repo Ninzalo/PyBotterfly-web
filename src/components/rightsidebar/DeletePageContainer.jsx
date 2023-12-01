@@ -6,6 +6,7 @@ export default function DeletePageContainer(props) {
   return (
     <div className='delete-page-container'>
       <ActionWithAccept
+        key={`delete-page-${props.pagesFuncs.pages.currentPage.get.currentPageInternalId()}`}
         actionTitle='Delete page'
         acceptAction={() =>
           props.pagesFuncs.pages.update.removePageById(

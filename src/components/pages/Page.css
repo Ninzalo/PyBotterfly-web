@@ -147,9 +147,8 @@
   background-color: var(--green-color);
 
   margin: 0;
-  margin-right: calc(
-    (100vw - (350px + (1vw * 2))) / 2 - (100px + (2px * 2)) / 2 - 20px
-  );
+  margin-left: auto;
+  margin-right: auto;
   margin-top: calc(45vh - (100px + (2px * 2)) / 2);
   padding: 0;
 

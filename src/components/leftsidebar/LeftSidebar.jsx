@@ -1,5 +1,5 @@
-import React from 'react'
 import '../Sidebar.css'
+import React from 'react'
 import ProjectNameContainer from './ProjectNameContainer'
 import MaxButtonsAmountContainer from './MaxButtonsAmountComponent'
 import MaxButtonsInRowContainer from './MaxButtonsInRowContainer'
@@ -7,7 +7,6 @@ import MaxRowsContainer from './MaxRowsContainer'
 import AllowedPhotoExtensionsContainer from '../allowedExtensions/AllowedPhotoExtensionsContainer'
 import AllowedFileExtensionsContainer from '../allowedExtensions/AllowedFileExtensionsContainer'
 import DebugStateContainer from './DebugStateContainer'
-import PreviewModeContainer from './PreviewModeContainer'
 
 export default function LeftSidebar(props) {
   return (
@@ -28,7 +27,6 @@ export default function LeftSidebar(props) {
         fileExtensionsFuncs={props.fileExtensionsFuncs}
       />
       <DebugStateContainer debugStateFuncs={props.debugStateFuncs} />
-      <PreviewModeContainer previewModeFuncs={props.previewModeFuncs} />
 
       <div className='empty-bottom-space'></div>
     </div>
