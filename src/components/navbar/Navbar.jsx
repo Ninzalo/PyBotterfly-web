@@ -14,13 +14,15 @@ export default function Navbar(props) {
         <div className='toggle-leftsidebar-line'></div>
       </div>
       <h1>PyBotterfly Creator</h1>
-      <div className='preview-mode-container'>
-        <h3>Preview Mode</h3>
-        <Switch
-          toggleSwitch={props.previewModeFuncs.togglePreviewMode}
-          switchState={props.previewModeFuncs.previewMode}
-        />
-      </div>
+      {props.pagesFuncs.pages.get.pages.length > 0 && (
+        <div className='preview-mode-container'>
+          <h3>Preview Mode</h3>
+          <Switch
+            toggleSwitch={props.previewModeFuncs.togglePreviewMode}
+            switchState={props.previewModeFuncs.previewMode}
+          />
+        </div>
+      )}
     </div>
   )
 }

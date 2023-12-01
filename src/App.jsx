@@ -887,6 +887,7 @@ function App() {
     <>
       <Navbar
         leftSidebarFuncs={leftSidebarFuncs}
+        pagesFuncs={pagesFuncs}
         previewModeFuncs={previewModeFuncs}
       />
       <div className='main'>
