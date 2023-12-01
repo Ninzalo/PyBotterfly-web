@@ -4,6 +4,7 @@ import PageDetails from './PageDetails'
 import PageIdContainer from './PageIdContainer'
 import MessageTextContainer from './MessageTextContainer'
 import ButtonsSettingsContainer from './ButtonsSettingsContainer'
+import DeletePageContainer from './DeletePageContainer'
 
 export default function RightSidebar(props) {
   return (
@@ -13,6 +14,7 @@ export default function RightSidebar(props) {
       <PageIdContainer pagesFuncs={props.pagesFuncs} />
       <MessageTextContainer pagesFuncs={props.pagesFuncs} />
       <ButtonsSettingsContainer pagesFuncs={props.pagesFuncs} />
+      <DeletePageContainer pagesFuncs={props.pagesFuncs} />
     </div>
   )
 }

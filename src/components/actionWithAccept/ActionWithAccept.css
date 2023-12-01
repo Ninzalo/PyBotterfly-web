@@ -31,6 +31,8 @@
 .action-with-accept > .action-with-accept__expand > h3 {
   margin: 0;
   padding: 0;
+  white-space: normal;
+  text-align: center;
 }
 
 .action-with-accept > .action-with-accept__expanded {
@@ -49,8 +51,13 @@
 
 .action-with-accept > .action-with-accept__content > .action-with-accept__text {
   font-weight: bold;
-  margin: 0.2rem 0;
+  white-space: normal;
+  text-align: center;
+
+  margin: 0.2rem 0.4rem;
   padding: 0;
+
+  width: calc(100% - 0.8rem);
 }
 
 .action-with-accept
@@ -64,8 +71,6 @@
   > .action-with-accept__content
   > .action-with-accept__buttons
   > .action-with-accept__button {
-  /* background-color: var(--transparent-red-color); */
-
   border: 1px solid var(--white-color);
   border-radius: 0.5rem;
 

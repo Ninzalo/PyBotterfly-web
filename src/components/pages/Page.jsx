@@ -8,12 +8,7 @@ export default function Page(props) {
     props.pagesFuncs.pages.currentPage.keyboard.type.get.type()
   return (
     <div className='page'>
-      <TopInfoContainer
-        projectName={props.projectName}
-        onDelete={() =>
-          props.pagesFuncs.pages.update.removePageById(props.internalPageId)
-        }
-      />
+      <TopInfoContainer projectName={props.projectName} />
       <MessageContainer
         projectName={props.projectName}
         pagesFuncs={props.pagesFuncs}
@@ -34,12 +29,6 @@ function TopInfoContainer(props) {
     <div className='top-info'>
       <BotLogo />
       <h2>{props.projectName}</h2>
-      <span
-        className='material-symbols-outlined clickable trash-ico'
-        onClick={props.onDelete}
-      >
-        delete
-      </span>
     </div>
   )
 }

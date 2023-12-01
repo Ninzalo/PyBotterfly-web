@@ -38,11 +38,6 @@
   background-color: var(--panel-grey-color);
 }
 
-.top-info > .trash-ico {
-  margin-left: auto;
-  margin-right: 20px;
-}
-
 .top-info > h2 {
   margin: 10px 10px;
   color: white;

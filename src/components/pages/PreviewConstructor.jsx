@@ -8,7 +8,6 @@ export default function PreviewConstructor(props) {
     page = (
       <Page
         key={props.pagesFuncs.pages.currentPage.get.currentPage().id}
-        internalPageId={props.pagesFuncs.pages.currentPage.get.currentPageInternalId()}
         projectName={props.projectNameFuncs.projectName}
         pagesFuncs={props.pagesFuncs}
       />
