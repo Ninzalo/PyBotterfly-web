@@ -30,8 +30,8 @@
   padding: 0;
 }
 
-.project-name-container > input,
-.page-id-container > input {
+.project-name-container>input,
+.page-id-container>input {
   background-color: var(--panel-grey-color);
   border: 1px solid white;
   border-radius: 6px;
@@ -50,20 +50,19 @@
   width: 100%;
 }
 
-.left-sidebar {
-}
+.left-sidebar {}
 
 .right-sidebar {
   margin-left: 0;
 }
 
-.sidebar > h1 {
+.sidebar>h1 {
   margin: 0;
   margin-top: 20px;
   margin-bottom: 10px;
 }
 
-.sidebar > h2 {
+.sidebar>h2 {
   margin: 0 auto;
   margin-bottom: 10px;
 }
